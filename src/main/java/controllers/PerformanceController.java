@@ -17,17 +17,24 @@ public class PerformanceController {
 
     @FXML
     private ComboBox<String> equipeComboBox;
-
     @FXML
     public void initialize() {
+        initializeEquipes();
+        initializeTournois();
+    }
+
+    private void initializeEquipes() {
         List<Equipe> equipeList = servicePerformanceEquipe.getAllEquipes();
         if (equipeList != null && !equipeList.isEmpty()) {
-            List<String> equipeNames = equipeList.stream()
-                    .map(Equipe::getNom)
+            List<Integer> equipeIds = equipeList.stream()
+                    .map(Equipe::getId)
                     .collect(Collectors.toList());
-            equipeComboBox.getItems().setAll(equipeNames);
+            equipeComboBox.getItems().setAll(equipeIds.stream()
+                    .map(String::valueOf)
+                    .collect(Collectors.toList()));
         }
     }
+
 
     @FXML
     private TextField victoiresField;
@@ -59,20 +66,36 @@ public class PerformanceController {
     @FXML
     private void handleValiderButtonAction() {
         try {
-            String equipeName = equipeComboBox.getValue();
+            Integer equipeId = Integer.valueOf(equipeComboBox.getValue());
             int victoires = Integer.parseInt(victoiresField.getText().trim());
             int pertes = Integer.parseInt(pertesField.getText().trim());
             int rang = Integer.parseInt(rangField.getText().trim());
             String tournoisName = tournoisComboBox.getValue();
 
-            if (equipeName.isEmpty() || tournoisName == null) {
+            if (equipeId == null || tournoisName == null) {
                 System.err.println("Please fill in all required fields.");
                 return;
             }
 
-            // Assuming Equipe constructor takes (nom, other params as needed)
-            Equipe equipe = new Equipe(equipeName, null, null, null);
-            Tournois tournois = new Tournois(tournoisName, null, null, null, null); // Adjust constructor as needed
+            Equipe equipe = servicePerformanceEquipe.getAllEquipes().stream()
+                    .filter(e -> e.getId() == equipeId)
+                    .findFirst()
+                    .orElse(null);
+            Tournois tournois = servicePerformanceEquipe.getAllTournois().stream()
+                    .filter(t -> t.getNom().equals(tournoisName))
+                    .findFirst()
+                    .orElse(null);
+
+            if (equipe == null) {
+                System.err.println("Selected Equipe does not exist.");
+                return;
+            }
+
+            if (tournois == null) {
+                System.err.println("Selected Tournois does not exist.");
+                return;
+            }
+
             PerformanceEquipe performanceEquipe = new PerformanceEquipe(equipe, victoires, pertes, rang, tournois);
 
             servicePerformanceEquipe.add(performanceEquipe);

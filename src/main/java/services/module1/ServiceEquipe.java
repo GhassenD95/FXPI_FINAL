@@ -22,7 +22,7 @@ public class ServiceEquipe extends BaseService implements IService<Equipe> {
 
             ps.setString(1, equipe.getNom());
             ps.setString(2, equipe.getDivision().getDivisionName());
-            ps.setInt(3, equipe.getCoach().getId());
+            ps.setInt(3, equipe.getCoach());
             ps.setString(4, equipe.getSport().name());
             ps.executeUpdate();
 
@@ -39,7 +39,7 @@ public class ServiceEquipe extends BaseService implements IService<Equipe> {
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, equipe.getNom());
             ps.setString(2, equipe.getDivision().name());
-            ps.setInt(3, equipe.getCoach().getId());
+            ps.setInt(3, equipe.getCoach());
             ps.setString(4, equipe.getSport().name());
             ps.setInt(5, equipe.getId());
             ps.executeUpdate();
@@ -73,7 +73,7 @@ public class ServiceEquipe extends BaseService implements IService<Equipe> {
                     Division division = Division.valueOf(rs.getString("division"));
                     Utilisateur coach = new ServiceUtilisateur().get(rs.getInt("coach_id"));
                     Sport sport = Sport.valueOf(rs.getString("sport"));
-                    Equipe equipe = new Equipe(nom, coach, division, sport);
+                    Equipe equipe = new Equipe(nom, coach.getId(), division, sport);
                     equipe.setId(id);
                     return equipe;
                 }
@@ -96,7 +96,7 @@ public class ServiceEquipe extends BaseService implements IService<Equipe> {
                 Sport sport = Sport.valueOf(rs.getString("sport"));
                 int id = rs.getInt("id");
 
-                Equipe equipe = new Equipe(nom,  coach,division, sport);
+                Equipe equipe = new Equipe(nom, coach.getId(),division, sport);
                 equipe.setId(id);
                 equipes.add(equipe);
             }

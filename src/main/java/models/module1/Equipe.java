@@ -7,10 +7,10 @@ public class Equipe {
     private int id;
     private String nom;
     private Division division;
-    private Utilisateur coach;
+    private int coach;
     private Sport sport;
 
-    public Equipe(String nom, Utilisateur coach, Division division, Sport sport) {
+    public Equipe(String nom, int coach, Division division, Sport sport) {
 
         this.nom = nom;
         this.coach = coach;
@@ -43,12 +43,12 @@ public class Equipe {
         this.division = division;
     }
 
-    public Utilisateur getCoach() {
+    public int getCoach() {
         return coach;
     }
 
     public void setCoach(Utilisateur coach) {
-        this.coach = coach;
+        this.coach = coach.getId();
     }
 
     public Sport getSport() {

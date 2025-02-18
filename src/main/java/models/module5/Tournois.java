@@ -18,6 +18,10 @@ public class Tournois {
         this.dateFin = dateFin;
         this.adresse = adresse;
     }
+    @Override
+    public String toString() {
+        return nom;
+    }
 
 
     public int getId() {
