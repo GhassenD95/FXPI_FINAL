@@ -1,8 +1,12 @@
 package enums;
 
 public enum Role {
-    ADMIN,
-    MANAGER,
-    COACH,
-    ATHLETE
+    admin,
+    manager,
+    coach,
+    athlete;
+
+    public String getRoleName(){
+        return name();
+    }
 }

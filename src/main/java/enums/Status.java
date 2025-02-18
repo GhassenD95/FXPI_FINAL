@@ -1,6 +1,9 @@
 package enums;
 
 public enum Status {
-    ACTIVE,
-    INACTIVE,
+    active,
+    inactive;
+    public String getStatusName() {
+        return name();
+    }
 }

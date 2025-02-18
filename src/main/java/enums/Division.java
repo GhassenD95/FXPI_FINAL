@@ -1,7 +1,11 @@
 package enums;
 
 public enum Division {
-    JEUNES,
-    AMATEUR,
-    PRO
+    jeunes,
+    amateur,
+    pro;
+
+    public String getDivisionName(){
+        return name();
+    }
 }

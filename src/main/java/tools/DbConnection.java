@@ -5,10 +5,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DbConnection {
-    private final String URL = ConfigLoader.get("db.url");
-    private final String USER = ConfigLoader.get("db.user");
-    private final String PASSWORD = ConfigLoader.get("db.password");
-
+    private final String URL = "jdbc:mysql://localhost:3306/pi_db";
+    private final String USER = "root";
+    private final String Password = "";
 
     private Connection conn = null;
 
@@ -16,7 +15,7 @@ public class DbConnection {
 
     private DbConnection() {
         try {
-            conn = DriverManager.getConnection(URL, USER, PASSWORD);
+            conn = DriverManager.getConnection(URL, USER, Password);
             System.out.println("connection etablie");
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -34,4 +33,5 @@ public class DbConnection {
     public Connection getConn() {
         return conn;
     }
+
 }

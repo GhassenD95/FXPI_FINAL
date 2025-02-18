@@ -1,7 +1,7 @@
 package enums;
 
 public enum Sport {
-    FOOTBALL,
-    BASKETBALL,
-    HANDBALL
+    football,
+    basketball,
+    FOOTBALL, handball
 }
