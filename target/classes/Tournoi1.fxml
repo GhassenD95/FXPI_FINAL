@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="556.0" prefWidth="945.0" style=";" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Tournoi1Controller">
+    <children>
+        <ImageView fitHeight="556.0" fitWidth="945.0" pickOnBounds="true">
+            <image>
+                <Image url="@images/crud.jpg" />
+            </image>
+        </ImageView>
+        <Text fill="#043873" layoutX="72.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Liste des Tournois" wrappingWidth="265.70770263671864">
+            <font>
+                <Font name="Arial" size="17.0" />
+            </font>
+        </Text>
+        <TableView fx:id="tableView" layoutX="72.0" layoutY="113.0" prefHeight="372.0" prefWidth="750.0" stylesheets="@css/styling.css">
+            <columns>
+                <TableColumn fx:id="nameColumn" prefWidth="97.6" text="Name" />
+                <TableColumn fx:id="addressColumn" prefWidth="118.4" text="Address" />
+                <TableColumn fx:id="sportColumn" prefWidth="106.4" text="Sport" />
+                <TableColumn fx:id="dateDebutColumn" prefWidth="123.2" text="Start Date" />
+                <TableColumn fx:id="dateFinColumn" prefWidth="118.4" text="End Date" />
+                <TableColumn fx:id="actionColumn" prefWidth="182.8" text="Action" />
+            </columns>
+        </TableView>
+    </children>
+</Pane>

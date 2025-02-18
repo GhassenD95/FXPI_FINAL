@@ -14,7 +14,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         // Load the FXML file
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Performance.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Performance1.fxml"));
         Pane root = loader.load();  // Load the FXML into a Pane (or other layout)
 
         // Create a Scene and set it on the stage
