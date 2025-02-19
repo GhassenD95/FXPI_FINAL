@@ -1,5 +1,6 @@
 package controllers;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -17,8 +18,8 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import models.module5.PerformanceEquipe;
-import services.module5.ServicePerformanceEquipe;
+import models.module4.PerformanceEquipe;
+import services.module4.Service1PerformanceEquipe;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -52,8 +53,8 @@ public class Performance1Controller {
     @FXML
     public void initialize() {
         // Initialize the columns
-        equipeColumn.setCellValueFactory(new PropertyValueFactory<>("equipe"));
-        tournoisColumn.setCellValueFactory(new PropertyValueFactory<>("tournois"));
+        equipeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEquipe().getNom()));
+        tournoisColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTournois().getNom()));
         victoiresColumn.setCellValueFactory(new PropertyValueFactory<>("victoires"));
         pertesColumn.setCellValueFactory(new PropertyValueFactory<>("pertes"));
         rangColumn.setCellValueFactory(new PropertyValueFactory<>("rang"));
@@ -66,7 +67,7 @@ public class Performance1Controller {
     }
 
     private void loadPerformanceData() {
-        ServicePerformanceEquipe servicePerformanceEquipe = new ServicePerformanceEquipe();
+        Service1PerformanceEquipe servicePerformanceEquipe = new Service1PerformanceEquipe();
         try {
             List<PerformanceEquipe> performances = servicePerformanceEquipe.getAll();
             performanceList.setAll(performances);
@@ -128,7 +129,7 @@ public class Performance1Controller {
     }
 
     private void deletePerformance(PerformanceEquipe performance) {
-        ServicePerformanceEquipe servicePerformanceEquipe = new ServicePerformanceEquipe();
+        Service1PerformanceEquipe servicePerformanceEquipe = new Service1PerformanceEquipe();
         try {
             servicePerformanceEquipe.delete(performance);
             performanceList.remove(performance);
@@ -155,4 +156,5 @@ public class Performance1Controller {
         } catch (IOException e) {
             e.printStackTrace();
         }
-}}
+    }
+}

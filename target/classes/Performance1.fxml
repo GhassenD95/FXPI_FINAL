@@ -8,6 +8,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.control.Button?>
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="556.0" prefWidth="945.0" style=";" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Performance1Controller">
     <children>
         <ImageView fitHeight="556.0" fitWidth="945.0" pickOnBounds="true">
@@ -30,5 +31,6 @@
 
             </columns>
         </TableView>
+
     </children>
 </Pane>

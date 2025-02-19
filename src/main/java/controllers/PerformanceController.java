@@ -1,13 +1,11 @@
 package controllers;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
-import models.module5.PerformanceEquipe;
+import javafx.scene.control.*;
 import models.module1.Equipe;
-import models.module5.Tournois;
-import services.module5.ServicePerformanceEquipe;
+import models.module4.PerformanceEquipe;
+import models.module4.Tournois;
+import services.module4.Service1PerformanceEquipe;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -17,24 +15,6 @@ public class PerformanceController {
 
     @FXML
     private ComboBox<String> equipeComboBox;
-    @FXML
-    public void initialize() {
-        initializeEquipes();
-        initializeTournois();
-    }
-
-    private void initializeEquipes() {
-        List<Equipe> equipeList = servicePerformanceEquipe.getAllEquipes();
-        if (equipeList != null && !equipeList.isEmpty()) {
-            List<Integer> equipeIds = equipeList.stream()
-                    .map(Equipe::getId)
-                    .collect(Collectors.toList());
-            equipeComboBox.getItems().setAll(equipeIds.stream()
-                    .map(String::valueOf)
-                    .collect(Collectors.toList()));
-        }
-    }
-
 
     @FXML
     private TextField victoiresField;
@@ -51,7 +31,29 @@ public class PerformanceController {
     @FXML
     private Button validerButton;
 
-    private final ServicePerformanceEquipe servicePerformanceEquipe = new ServicePerformanceEquipe();
+    private final Service1PerformanceEquipe servicePerformanceEquipe = new Service1PerformanceEquipe();
+
+    @FXML
+    public void initialize() {
+        initializeEquipes();
+        initializeTournois();
+    }
+
+    private void initializeEquipes() {
+        try {
+            List<Equipe> equipeList = servicePerformanceEquipe.getAllEquipes();
+            if (equipeList != null && !equipeList.isEmpty()) {
+                List<Integer> equipeIds = equipeList.stream()
+                        .map(Equipe::getId)
+                        .collect(Collectors.toList());
+                equipeComboBox.getItems().setAll(equipeIds.stream()
+                        .map(String::valueOf)
+                        .collect(Collectors.toList()));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     private void initializeTournois() {
         List<Tournois> tournoisList = servicePerformanceEquipe.getAllTournois();
@@ -66,46 +68,92 @@ public class PerformanceController {
     @FXML
     private void handleValiderButtonAction() {
         try {
-            Integer equipeId = Integer.valueOf(equipeComboBox.getValue());
-            int victoires = Integer.parseInt(victoiresField.getText().trim());
-            int pertes = Integer.parseInt(pertesField.getText().trim());
-            int rang = Integer.parseInt(rangField.getText().trim());
-            String tournoisName = tournoisComboBox.getValue();
-
-            if (equipeId == null || tournoisName == null) {
-                System.err.println("Please fill in all required fields.");
+            // Vérification si les champs sont vides ou non sélectionnés
+            if (equipeComboBox.getValue() == null || equipeComboBox.getValue().isEmpty()) {
+                showAlert(Alert.AlertType.ERROR, "Validation Error", "Veuillez sélectionner une équipe.");
+                return;
+            }
+            if (tournoisComboBox.getValue() == null || tournoisComboBox.getValue().isEmpty()) {
+                showAlert(Alert.AlertType.ERROR, "Validation Error", "Veuillez sélectionner un tournoi.");
                 return;
             }
 
+            // Vérification des champs numériques
+            String victoiresText = victoiresField.getText().trim();
+            String pertesText = pertesField.getText().trim();
+            String rangText = rangField.getText().trim();
+
+            if (victoiresText.isEmpty() || pertesText.isEmpty() || rangText.isEmpty()) {
+                showAlert(Alert.AlertType.ERROR, "Validation Error", "Tous les champs doivent être remplis.");
+                return;
+            }
+
+            int victoires, pertes, rang;
+
+            try {
+                victoires = Integer.parseInt(victoiresText);
+            } catch (NumberFormatException e) {
+                showAlert(Alert.AlertType.ERROR, "Validation Error", "Le nombre de victoires doit être un entier valide.");
+                return;
+            }
+
+            try {
+                pertes = Integer.parseInt(pertesText);
+            } catch (NumberFormatException e) {
+                showAlert(Alert.AlertType.ERROR, "Validation Error", "Le nombre de pertes doit être un entier valide.");
+                return;
+            }
+
+            try {
+                rang = Integer.parseInt(rangText);
+            } catch (NumberFormatException e) {
+                showAlert(Alert.AlertType.ERROR, "Validation Error", "Le rang doit être un entier valide.");
+                return;
+            }
+
+            // Récupérer l'équipe sélectionnée
+            Integer equipeId = Integer.valueOf(equipeComboBox.getValue());
             Equipe equipe = servicePerformanceEquipe.getAllEquipes().stream()
                     .filter(e -> e.getId() == equipeId)
                     .findFirst()
                     .orElse(null);
+
+            // Récupérer le tournoi sélectionné
+            String tournoisName = tournoisComboBox.getValue();
             Tournois tournois = servicePerformanceEquipe.getAllTournois().stream()
                     .filter(t -> t.getNom().equals(tournoisName))
                     .findFirst()
                     .orElse(null);
 
             if (equipe == null) {
-                System.err.println("Selected Equipe does not exist.");
+                showAlert(Alert.AlertType.ERROR, "Validation Error", "L'équipe sélectionnée n'existe pas.");
                 return;
             }
 
             if (tournois == null) {
-                System.err.println("Selected Tournois does not exist.");
+                showAlert(Alert.AlertType.ERROR, "Validation Error", "Le tournoi sélectionné n'existe pas.");
                 return;
             }
 
-            PerformanceEquipe performanceEquipe = new PerformanceEquipe(equipe, victoires, pertes, rang, tournois);
+            // Créer l'objet PerformanceEquipe
+            PerformanceEquipe performanceEquipe = new PerformanceEquipe(equipe, tournois, victoires, pertes, rang);
 
-            servicePerformanceEquipe.add(performanceEquipe);
-            System.out.println("PerformanceEquipe has been added!");
-
-        } catch (NumberFormatException e) {
-            System.err.println("Invalid number format: " + e.getMessage());
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.err.println("Database error: " + e.getMessage());
+            // Ajouter la performance
+            try {
+                servicePerformanceEquipe.add(performanceEquipe);
+                showAlert(Alert.AlertType.INFORMATION, "Ajout réussi", "La performance de l'équipe a été ajoutée avec succès!");
+            } catch (SQLException e) {
+                showAlert(Alert.AlertType.ERROR, "Database Error", "Erreur lors de l'ajout de la performance : " + e.getMessage());
+            }
+        } catch (Exception e) {
+            showAlert(Alert.AlertType.ERROR, "General Error", "Erreur générale : " + e.getMessage());
         }
     }
-}
+
+    private void showAlert(Alert.AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }}

@@ -1,25 +1,25 @@
 package models.module4;
 
 import enums.Sport;
-import enums.TypeTournois;
 import models.module5.MatchSportif;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Tournois {
     private int id;
     private String nom;
     private Sport sport;
-    private LocalDateTime dateDebut;
-    private LocalDateTime dateFin;
+    private java.util.Date dateDebut;
+    private Date dateFin;
     private String adresse;
 
     private List<MatchSportif> matches;
     private List<PerformanceEquipe> performanceEquipes;
 
-    public Tournois(int id, String nom, Sport sport, LocalDateTime dateDebut, LocalDateTime dateFin, String adresse) {
+    public Tournois(int id, String nom, Sport sport, java.util.Date dateDebut, java.util.Date dateFin, String adresse) {
         this.id = id;
         this.nom = nom;
         this.sport = sport;
@@ -30,7 +30,7 @@ public class Tournois {
         this.performanceEquipes = new ArrayList<>();
     }
 
-    public Tournois(String nom, Sport sport, LocalDateTime dateDebut, LocalDateTime dateFin, String adresse) {
+    public Tournois(String nom, Sport sport, java.util.Date dateDebut, java.util.Date dateFin, String adresse) {
         this.nom = nom;
         this.sport = sport;
         this.dateDebut = dateDebut;
@@ -69,19 +69,19 @@ public class Tournois {
         this.sport = sport;
     }
 
-    public LocalDateTime getDateDebut() {
+    public java.util.Date getDateDebut() {
         return dateDebut;
     }
 
-    public void setDateDebut(LocalDateTime dateDebut) {
+    public void setDateDebut(java.util.Date dateDebut) {
         this.dateDebut = dateDebut;
     }
 
-    public LocalDateTime getDateFin() {
+    public java.util.Date getDateFin() {
         return dateFin;
     }
 
-    public void setDateFin(LocalDateTime dateFin) {
+    public void setDateFin(Date dateFin) {
         this.dateFin = dateFin;
     }
 

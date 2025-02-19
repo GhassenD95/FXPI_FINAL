@@ -1,7 +1,8 @@
 package enums;
 
 public enum TypeInstallation {
-    stade,
-    terrain,
-    salle
+    STADE,
+    SALLE_GYM,
+    TERRAIN,
+    PISCINE,
 }

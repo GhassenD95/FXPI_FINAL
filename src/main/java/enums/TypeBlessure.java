@@ -1,7 +1,7 @@
 package enums;
 
 public enum TypeBlessure {
-    fracture,
-    entorse,
-    contusion
+    FRACTURE,
+    ENTORSE,
+    CONTUSION
 }

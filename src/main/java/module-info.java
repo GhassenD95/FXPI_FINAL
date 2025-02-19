@@ -10,7 +10,10 @@ module mains.fxpi_final {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires java.sql;
 
     opens mains.fxpi_final to javafx.fxml;
+    opens models.module4 to javafx.base;
     exports mains.fxpi_final;
+    opens controllers to javafx.fxml;
 }

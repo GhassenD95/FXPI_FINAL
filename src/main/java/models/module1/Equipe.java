@@ -2,22 +2,59 @@ package models.module1;
 
 import enums.Division;
 import enums.Sport;
+import models.module2.Entrainment;
+import models.module4.PerformanceEquipe;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Equipe {
     private int id;
     private String nom;
     private Division division;
-    private int coach;
     private Sport sport;
+    private boolean isLocal;
+    private Utilisateur coach;
 
-    public Equipe(String nom, int coach, Division division, Sport sport) {
+    List<Utilisateur> athletes;
+    List<Entrainment> entrainments;
 
-        this.nom = nom;
-        this.coach = coach;
-        this.division = division;
-        this.sport = sport;
+    public Equipe() {
+        this.athletes = new ArrayList<>();
+        this.entrainments = new ArrayList<>();
     }
 
+
+    public Equipe(int id, String nom, Sport sport, Division division, boolean isLocal, Utilisateur coach) {
+        this.id = id;
+        this.nom = nom;
+        this.sport = sport;
+        this.division = division;
+        this.isLocal = isLocal;
+        this.coach = coach;
+        this.athletes = new ArrayList<>();
+        this.entrainments = new ArrayList<>();
+
+    }
+
+    public Equipe(String nom, Sport sport, Division division, boolean isLocal, Utilisateur coach) {
+        this.nom = nom;
+        this.sport = sport;
+        this.division = division;
+        this.isLocal = isLocal;
+        this.coach = coach;
+        this.athletes = new ArrayList<>();
+        this.entrainments = new ArrayList<>();
+    }
+
+    public Equipe(String nom, Sport sport, Division division, boolean isLocal) {
+        this.nom = nom;
+        this.division = division;
+        this.sport = sport;
+        this.isLocal = isLocal;
+        this.athletes = new ArrayList<>();
+        this.entrainments = new ArrayList<>();
+    }
 
     public int getId() {
         return id;
@@ -43,14 +80,6 @@ public class Equipe {
         this.division = division;
     }
 
-    public int getCoach() {
-        return coach;
-    }
-
-    public void setCoach(Utilisateur coach) {
-        this.coach = coach.getId();
-    }
-
     public Sport getSport() {
         return sport;
     }
@@ -59,14 +88,48 @@ public class Equipe {
         this.sport = sport;
     }
 
+    public boolean isLocal() {
+        return isLocal;
+    }
+
+    public void setIsLocal(boolean local) {
+        isLocal = local;
+    }
+
+    public Utilisateur getCoach() {
+        return coach;
+    }
+
+    public void setCoach(Utilisateur coach) {
+        this.coach = coach;
+    }
+
+    public List<Utilisateur> getAthletes() {
+        return athletes;
+    }
+
+    public void setAthletes(List<Utilisateur> athletes) {
+        this.athletes = athletes;
+    }
+
+    public List<Entrainment> getEntrainments() {
+        return entrainments;
+    }
+
+    public void setEntrainments(List<Entrainment> entrainments) {
+        this.entrainments = entrainments;
+    }
+
+
     @Override
     public String toString() {
         return "Equipe{" +
-                "id=" + id +
-                ", nom='" + nom + '\'' +
+                "nom='" + nom + '\'' +
                 ", division=" + division +
-                ", coach=" + coach +
                 ", sport=" + sport +
+                ", isLocal=" + isLocal +
+                ", coach=" + coach +
                 '}';
     }
+
 }

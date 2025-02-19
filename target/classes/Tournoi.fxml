@@ -38,6 +38,7 @@
         <Label layoutX="205.0" layoutY="241.0" prefHeight="17.0" prefWidth="82.0" text="Discipline" />
         <Label layoutX="205.0" layoutY="291.0" prefHeight="17.0" prefWidth="82.0" text="Date de début" />
         <Label layoutX="205.0" layoutY="340.0" prefHeight="17.0" prefWidth="82.0" text="Date de fin" />
+
         <Text fill="#043873" layoutX="210.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter un Tournoi" wrappingWidth="265.70770263671864">
             <font>
                 <Font name="Arial" size="23.0" />

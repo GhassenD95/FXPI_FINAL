@@ -1,13 +1,14 @@
 package controllers;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import models.module1.Equipe;
-import models.module5.PerformanceEquipe;
-import models.module5.Tournois;
+import models.module4.PerformanceEquipe;
+import models.module4.Tournois;
 import services.module1.ServiceEquipe;
-import services.module5.ServicePerformanceEquipe;
-import services.module5.ServiceTournois;
+import services.module4.Service1PerformanceEquipe;
+import services.module4.Service1Tournois;
 
 import java.sql.SQLException;
 
@@ -39,33 +40,69 @@ public class Performance2Controller {
 
     @FXML
     private void handleValiderButtonAction() {
-        ServiceEquipe serviceEquipe = new ServiceEquipe();
-        ServiceTournois serviceTournois = new ServiceTournois();
-
         try {
-            // Parse the IDs from the text fields
-            int equipeId = Integer.parseInt(equipeField.getText());
-            int tournoisId = Integer.parseInt(tournoisField.getText());
+            // Vérification si les champs sont vides
+            if (equipeField.getText().isEmpty() || tournoisField.getText().isEmpty() ||
+                    victoiresField.getText().isEmpty() || pertesField.getText().isEmpty() || rangField.getText().isEmpty()) {
+                showAlert(Alert.AlertType.ERROR, "Validation Error", "Tous les champs doivent être remplis.");
+                return;
+            }
+
+            // Parse the IDs and numeric fields
+            int equipeId, tournoisId, victoires, pertes, rang;
+            try {
+                equipeId = Integer.parseInt(equipeField.getText());
+                tournoisId = Integer.parseInt(tournoisField.getText());
+                victoires = Integer.parseInt(victoiresField.getText());
+                pertes = Integer.parseInt(pertesField.getText());
+                rang = Integer.parseInt(rangField.getText());
+            } catch (NumberFormatException e) {
+                showAlert(Alert.AlertType.ERROR, "Validation Error", "Tous les champs numériques doivent être des entiers valides.");
+                return;
+            }
 
             // Retrieve the Equipe and Tournois objects based on the IDs
+            ServiceEquipe serviceEquipe = new ServiceEquipe();
+            Service1Tournois serviceTournois = new Service1Tournois();
+
             Equipe equipe = serviceEquipe.get(equipeId);
+            if (equipe == null) {
+                showAlert(Alert.AlertType.ERROR, "Validation Error", "L'équipe sélectionnée n'existe pas.");
+                return;
+            }
+
             Tournois tournois = serviceTournois.get(tournoisId);
+            if (tournois == null) {
+                showAlert(Alert.AlertType.ERROR, "Validation Error", "Le tournoi sélectionné n'existe pas.");
+                return;
+            }
 
             // Set the retrieved objects in the PerformanceEquipe object
             performance.setEquipe(equipe);
             performance.setTournois(tournois);
-            performance.setVictoires(Integer.parseInt(victoiresField.getText()));
-            performance.setPertes(Integer.parseInt(pertesField.getText()));
-            performance.setRang(Integer.parseInt(rangField.getText()));
+            performance.setVictoires(victoires);
+            performance.setPertes(pertes);
+            performance.setRang(rang);
 
             // Update the performance
-            ServicePerformanceEquipe servicePerformanceEquipe = new ServicePerformanceEquipe();
+            Service1PerformanceEquipe servicePerformanceEquipe = new Service1PerformanceEquipe();
             servicePerformanceEquipe.update(performance);
-            System.out.println("Performance has been updated!");
-        } catch (NumberFormatException e) {
-            System.err.println("Invalid input: " + e.getMessage());
+
+            showAlert(Alert.AlertType.INFORMATION, "Success", "La performance a été mise à jour avec succès!");
+
         } catch (SQLException e) {
             e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Database Error", "Erreur lors de la mise à jour de la performance : " + e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "General Error", "Erreur générale : " + e.getMessage());
         }
+    }
+
+    private void showAlert(Alert.AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
     }
 }

@@ -79,4 +79,5 @@ public class PerformanceEquipe {
     public void setRang(int rang) {
         this.rang = rang;
     }
+
 }

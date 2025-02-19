@@ -1,14 +1,11 @@
 package controllers;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
-import models.module5.Tournois;
+import javafx.scene.control.*;
+import models.module4.Tournois;
 import enums.Sport;
 import tools.DbConnection;
-import services.module5.ServiceTournois;
+import services.module4.Service1Tournois;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -49,15 +46,57 @@ public class TournoiController {
         Date dateDebut = java.sql.Date.valueOf(dateDebutPicker.getValue());
         Date dateFin = java.sql.Date.valueOf(dateFinPicker.getValue());
 
+        // Input validation
+        if (!validateInputs(nom, adresse, sport, dateDebut, dateFin)) {
+            return; // Exit if validation fails
+        }
+
         Tournois tournois = new Tournois(nom, sport, dateDebut, dateFin, adresse);
-        ServiceTournois serviceTournois = new ServiceTournois();
+        Service1Tournois serviceTournois = new Service1Tournois();
 
         try {
             serviceTournois.add(tournois);
-            System.out.println("Tournoi has been added!");
+            showDialog("Ajout réussi", "Le tournoi a été ajouté avec succès!", Alert.AlertType.INFORMATION);
         } catch (SQLException e) {
+            showDialog("Erreur", "Une erreur est survenue lors de l'ajout du tournoi.", Alert.AlertType.ERROR);
             e.printStackTrace();
         }
+    }
+
+    private boolean validateInputs(String nom, String adresse, Sport sport, Date dateDebut, Date dateFin) {
+        // Check if the name is at least 5 characters long
+        if (nom == null || nom.trim().isEmpty() || nom.length() < 5) {
+            showDialog("Erreur", "Le nom du tournoi doit contenir au moins 5 caractères.", Alert.AlertType.ERROR);
+            return false;
+        }
+
+        // Check if the start date is before the end date
+        if (dateDebut == null || dateFin == null || dateDebut.after(dateFin)) {
+            showDialog("Erreur", "La date de début doit être antérieure à la date de fin.", Alert.AlertType.ERROR);
+            return false;
+        }
+
+        // Check if the address is empty
+        if (adresse == null || adresse.trim().isEmpty()) {
+            showDialog("Erreur", "L'adresse du tournoi est requise.", Alert.AlertType.ERROR);
+            return false;
+        }
+
+        // Check if the sport is selected
+        if (sport == null) {
+            showDialog("Erreur", "Veuillez sélectionner un sport.", Alert.AlertType.ERROR);
+            return false;
+        }
+
+        return true; // All validations passed
+    }
+
+    private void showDialog(String title, String message, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
     private void saveTournoisToDatabase(Tournois tournois) {

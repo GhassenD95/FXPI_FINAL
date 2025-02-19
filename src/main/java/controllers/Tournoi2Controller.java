@@ -1,8 +1,6 @@
 package controllers;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.text.SimpleDateFormat;
 
 import java.util.Date;
 import javafx.fxml.FXML;
@@ -10,11 +8,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import models.module5.Tournois;
+import models.module4.Tournois;
 import enums.Sport;
-import services.module5.ServiceTournois;
-
-import java.sql.SQLException;
+import services.module4.Service1Tournois;
 
 public class Tournoi2Controller {
 
@@ -65,7 +61,7 @@ public class Tournoi2Controller {
         tournois.setDateDebut(java.sql.Date.valueOf(dateDebutPicker.getValue()));
         tournois.setDateFin(java.sql.Date.valueOf(dateFinPicker.getValue()));
 
-        ServiceTournois serviceTournois = new ServiceTournois();
+        Service1Tournois serviceTournois = new Service1Tournois();
 
         serviceTournois.update(tournois);
         System.out.println("Tournoi has been updated!");

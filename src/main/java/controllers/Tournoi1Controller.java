@@ -17,11 +17,14 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import models.module5.Tournois;
-import services.module5.ServiceTournois;
+import models.module4.Tournois;
+import services.module4.Service1Tournois;
 
 import java.io.IOException;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
@@ -67,7 +70,7 @@ public class Tournoi1Controller {
     }
 
     private void loadTournoisData() {
-        ServiceTournois serviceTournois = new ServiceTournois();
+        Service1Tournois serviceTournois = new Service1Tournois();
         try {
             List<Tournois> tournois = serviceTournois.getAll();
             tournoisList.setAll(tournois);
@@ -109,6 +112,12 @@ public class Tournoi1Controller {
                             deleteTournois(data);
                         });
                     }
+                    private LocalDate convertToLocalDate(Date date) {
+                        if (date == null) {
+                            return null;
+                        }
+                        return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                    }
 
                     @Override
                     public void updateItem(Void item, boolean empty) {
@@ -130,10 +139,11 @@ public class Tournoi1Controller {
     }
 
     private void deleteTournois(Tournois tournois) {
-        ServiceTournois serviceTournois = new ServiceTournois();
+        Service1Tournois serviceTournois = new Service1Tournois();
         serviceTournois.delete(tournois);
         tournoisList.remove(tournois);
     }
+
 
     private void openUpdateDialog(Tournois tournois) {
         try {
