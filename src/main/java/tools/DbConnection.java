@@ -5,9 +5,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DbConnection {
-    private final String URL = ConfigLoader.get("db.url");
-    private final String USER = ConfigLoader.get("db.user");
-    private final String PASSWORD = ConfigLoader.get("db.password");
+    private final String URL = "jdbc:mysql://localhost:3306/dbpi";
+    private final String USER = "root";
+    private final String PASSWORD = "";
 
 
     private Connection conn = null;

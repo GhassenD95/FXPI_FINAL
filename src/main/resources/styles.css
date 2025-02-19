@@ -1,0 +1,69 @@
+/* Global text field style */
+.text-field {
+    -fx-font-size: 14px;               /* Font size */
+    -fx-background-color: inherit; /* Transparent background */
+    -fx-border-color: rgba(52, 58, 64, 0.5);
+    -fx-border-radius: 25px;
+    -fx-text-fill: rgba(52, 58, 64, 0.5);
+    -fx-border-width: 1px;
+}
+
+
+.text-field:focused {
+    -fx-border-color: rgba(52, 58, 64, 1);   /* Border color fully opaque */
+    -fx-text-fill: rgba(52, 58, 64, 1);       /* Text color fully opaque */
+}
+
+
+.button {
+    -fx-font-size: 14px;                /* Font size */
+    -fx-background-color: transparent;  /* Transparent background */
+    -fx-border-color: rgba(52, 58, 64, 0.5); /* Border color with 50% opacity */
+    -fx-border-radius: 25px;            /* Rounded corners */
+    -fx-text-fill: rgba(52, 58, 64, 0.5); /* Text color with 50% opacity */
+    -fx-border-width: 1px;              /* Border width */
+    -fx-padding: 8px 16px;              /* Padding inside the button */
+    -fx-cursor: hand;                   /* Hand cursor on hover */
+}
+
+.button:hover {
+    -fx-border-color: rgba(52, 58, 64, 1);   /* Fully opaque border */
+    -fx-text-fill: rgba(52, 58, 64, 1);       /* Fully opaque text */
+}
+
+.app-message{
+    -fx-end-margin: 10px;
+}
+
+.card {
+    -fx-background-color: #f2f0ef;
+    -fx-border-color: rgba(52, 58, 64, 0.2); /* Subtle border */
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 5, 0, 2, 2);
+}
+.card_ {
+    -fx-background-color: #f2f0ef;
+    -fx-border-color: rgba(52, 58, 64, 0.2); /* Subtle border */
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 5, 0, 2, 2);
+}
+
+.card:hover {
+    -fx-border-color: rgba(52, 58, 64, 1); /* Fully opaque border on hover */
+    -fx-text-fill: rgba(52, 58, 64, 1); /* Fully opaque text */
+    -fx-translate-y: -5px; /* Moves the card up slightly on hover */
+    -fx-cursor: hand;
+}
+.card_:hover {
+    -fx-border-color: rgba(52, 58, 64, 1); /* Fully opaque border on hover */
+    -fx-text-fill: rgba(52, 58, 64, 1); /* Fully opaque text */
+    -fx-translate-y: 5px; /* Moves the card up slightly on hover */
+    -fx-cursor: hand;
+
+}
+
+
+
+

@@ -1,4 +1,4 @@
-module mains.fxpi_final {
+module com.gus.javafxpi {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
@@ -10,7 +10,10 @@ module mains.fxpi_final {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires java.sql;
 
-    opens mains.fxpi_final to javafx.fxml;
-    exports mains.fxpi_final;
+    opens com.gus.javafxpi to javafx.fxml;
+    exports com.gus.javafxpi;
+    exports controllers;
+    opens controllers to javafx.fxml;
 }

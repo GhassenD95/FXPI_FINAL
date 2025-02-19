@@ -4,10 +4,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>mains</groupId>
-    <artifactId>FXPI_FINAL</artifactId>
+    <groupId>com.Gus</groupId>
+    <artifactId>javaFxPI</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>FXPI_FINAL</name>
+    <name>javaFxPI</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -19,6 +19,11 @@
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
             <version>22.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.22</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
@@ -133,7 +138,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>mains.fxpi_final/mains.fxpi_final.HelloApplication</mainClass>
+                            <mainClass>com.gus.javafxpi/com.gus.javafxpi.HelloApplication</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>
