@@ -1,6 +1,7 @@
 package models.module6;
 
 import enums.TypeInstallation;
+import javafx.beans.value.ObservableValue;
 import models.module1.Utilisateur;
 import models.module2.Entrainment;
 
@@ -130,4 +131,6 @@ public class InstallationSportive {
     public void setEquipements(List<Equipement> equipements) {
         this.equipements = equipements;
     }
+
+
 }

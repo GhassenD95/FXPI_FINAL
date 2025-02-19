@@ -77,7 +77,7 @@ public class ServiceInstallationSportive extends BaseService implements IService
             returnedInstallationSportive.setCapacite(rs.getInt("capacite"));
             returnedInstallationSportive.setImage_url(rs.getString("image_url"));
             returnedInstallationSportive.setTypeInstallation(TypeInstallation.valueOf(rs.getString("type_installation")));
-            returnedInstallationSportive.setManager(new ServiceUtilisateur().get(rs.getInt("manager_id")));
+            //returnedInstallationSportive.setManager(new ServiceUtilisateur().get(rs.getInt("manager_id")));
 
             return returnedInstallationSportive;
 
@@ -101,9 +101,9 @@ public class ServiceInstallationSportive extends BaseService implements IService
             returnedInstallationSportive.setCapacite(rs.getInt("capacite"));
             returnedInstallationSportive.setImage_url(rs.getString("image_url"));
             returnedInstallationSportive.setTypeInstallation(TypeInstallation.valueOf(rs.getString("type_installation")));
-            returnedInstallationSportive.setManager(new ServiceUtilisateur().get(rs.getInt("manager_id")));
+            //returnedInstallationSportive.setManager(new ServiceUtilisateur().get(rs.getInt("manager_id")));
 
-            returnedInstallationSportive.setEntrainments(new ServiceEntrainment().getEntrainmentsParInstallationId(rs.getInt("id")));
+            //returnedInstallationSportive.setEntrainments(new ServiceEntrainment().getEntrainmentsParInstallationId(rs.getInt("id")));
 
             installationSportives.add(returnedInstallationSportive);
 
@@ -126,11 +126,13 @@ public class ServiceInstallationSportive extends BaseService implements IService
             returnedInstallationSportive.setCapacite(rs.getInt("capacite"));
             returnedInstallationSportive.setImage_url(rs.getString("image_url"));
             returnedInstallationSportive.setTypeInstallation(TypeInstallation.valueOf(rs.getString("type_installation")));
-            returnedInstallationSportive.setManager(new ServiceUtilisateur().get(rs.getInt("manager_id")));
+            //returnedInstallationSportive.setManager(new ServiceUtilisateur().get(rs.getInt("manager_id")));
 
-            returnedInstallationSportive.setEntrainments(new ServiceEntrainment().getEntrainmentsParInstallationId(rs.getInt("id")));
+            //returnedInstallationSportive.setEntrainments(new ServiceEntrainment().getEntrainmentsParInstallationId(rs.getInt("id")));
 
             installationSportives.add(returnedInstallationSportive);
 
         }
         return installationSportives;
+    }
+}

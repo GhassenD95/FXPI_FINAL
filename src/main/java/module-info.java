@@ -14,4 +14,6 @@ module mains.fxpi_final {
 
     opens mains.fxpi_final to javafx.fxml;
     exports mains.fxpi_final;
+    exports application;
+    opens application to javafx.fxml;
 }

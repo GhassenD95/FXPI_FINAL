@@ -3,106 +3,74 @@ package controllers;
 import enums.EtatEquipement;
 import enums.TypeEquipement;
 import models.module6.Equipement;
-import models.module6.InstallationSportive;
-import services.EquipementService;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.*;
+import javafx.beans.property.SimpleStringProperty;
+import services.module6.ServiceEquipement;
+
+import java.sql.SQLException;
+import java.util.List;
 
 public class EquipementController {
 
-    @FXML
-    private TextField nomField;
+    @FXML private TextField nomField;
+    @FXML private TextArea descriptionField;
+    @FXML private ComboBox<EtatEquipement> etatComboBox;
+    @FXML private ComboBox<TypeEquipement> typeComboBox;
+    @FXML private TextField quantiteField;
+    @FXML private TableView<Equipement> equipementTable;
+    @FXML private TableColumn<Equipement, String> nomColumn;
+    @FXML private TableColumn<Equipement, String> descriptionColumn;
+    @FXML private TableColumn<Equipement, String> etatColumn;
+    @FXML private TableColumn<Equipement, String> typeColumn;
+    @FXML private TableColumn<Equipement, String> quantiteColumn;
+    @FXML private Button addButton;
+    @FXML private Button editButton;
+    @FXML private Button deleteButton;
 
-    @FXML
-    private TextArea descriptionField;
-
-    @FXML
-    private ComboBox<EtatEquipement> etatComboBox;
-
-    @FXML
-    private ComboBox<TypeEquipement> typeComboBox;
-
-    @FXML
-    private TextField quantiteField;
-
-    @FXML
-    private TableView<Equipement> equipementTable;
-
-    @FXML
-    private TableColumn<Equipement, String> nomColumn;
-
-    @FXML
-    private TableColumn<Equipement, String> descriptionColumn;
-
-    @FXML
-    private TableColumn<Equipement, EtatEquipement> etatColumn;
-
-    @FXML
-    private TableColumn<Equipement, TypeEquipement> typeColumn;
-
-    @FXML
-    private TableColumn<Equipement, Integer> quantiteColumn;
-
-    @FXML
-    private Button addButton;
-
-    @FXML
-    private Button editButton;
-
-    @FXML
-    private Button deleteButton;
-
-    private EquipementService equipementService;
-
-    public EquipementController() {
-        equipementService = new EquipementService();
-    }
+    private final ServiceEquipement equipementService = new ServiceEquipement();
 
     @FXML
     public void initialize() {
-        // Initialiser les ComboBox
-        etatComboBox.getItems().setAll(EtatEquipement.values());
-        typeComboBox.getItems().setAll(TypeEquipement.values());
+        // Initialisation des ComboBox
+        etatComboBox.setItems(FXCollections.observableArrayList(EtatEquipement.values()));
+        typeComboBox.setItems(FXCollections.observableArrayList(TypeEquipement.values()));
 
-        // Initialiser les colonnes de la TableView
-        nomColumn.setCellValueFactory(cellData -> cellData.getValue().getNom());
-        descriptionColumn.setCellValueFactory(cellData -> cellData.getValue().getDescription());
-        etatColumn.setCellValueFactory(cellData -> cellData.getValue().getEtat());
-        typeColumn.setCellValueFactory(cellData -> cellData.getValue().getTypeEquipement());
-        quantiteColumn.setCellValueFactory(cellData -> cellData.getValue().getQuantite());
+        // Configuration des colonnes de la TableView
+        nomColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNom()));
+        descriptionColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDescription()));
+        etatColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEtat().toString()));
+        typeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTypeEquipement().toString()));
+        quantiteColumn.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getQuantite())));
 
-        // Charger les équipements
+        // Chargement initial des équipements
         loadEquipements();
     }
 
     @FXML
     public void handleAdd() {
         try {
-            String nom = nomField.getText();
-            String description = descriptionField.getText();
+            String nom = nomField.getText().trim();
+            String description = descriptionField.getText().trim();
             EtatEquipement etat = etatComboBox.getValue();
             TypeEquipement type = typeComboBox.getValue();
-            int quantite = Integer.parseInt(quantiteField.getText());
+            int quantite = parseQuantite(quantiteField.getText().trim());
 
-            // Créer un nouvel équipement
+            if (nom.isEmpty() || description.isEmpty() || etat == null || type == null || quantite < 0) {
+                showAlert("Erreur", "Veuillez remplir tous les champs correctement.", Alert.AlertType.ERROR);
+                return;
+            }
+
             Equipement equipement = new Equipement(nom, description, etat, type, null, quantite, null);
-
-            // Ajouter l'équipement
             equipementService.add(equipement);
 
-            // Réactualiser la TableView
             loadEquipements();
-
-            showAlert("Ajout Réussi", "L'équipement a été ajouté avec succès", AlertType.INFORMATION);
-        } catch (Exception e) {
-            showAlert("Erreur", "Veuillez remplir tous les champs correctement", AlertType.ERROR);
+            clearFields();
+            showAlert("Ajout Réussi", "L'équipement a été ajouté avec succès.", Alert.AlertType.INFORMATION);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            showAlert("Erreur", "Impossible d'ajouter l'équipement.", Alert.AlertType.ERROR);
         }
     }
 
@@ -112,31 +80,34 @@ public class EquipementController {
 
         if (selectedEquipement != null) {
             try {
-                String nom = nomField.getText();
-                String description = descriptionField.getText();
+                String nom = nomField.getText().trim();
+                String description = descriptionField.getText().trim();
                 EtatEquipement etat = etatComboBox.getValue();
                 TypeEquipement type = typeComboBox.getValue();
-                int quantite = Integer.parseInt(quantiteField.getText());
+                int quantite = parseQuantite(quantiteField.getText().trim());
 
-                // Modifier l'équipement sélectionné
+                if (nom.isEmpty() || description.isEmpty() || etat == null || type == null || quantite < 0) {
+                    showAlert("Erreur", "Veuillez remplir tous les champs correctement.", Alert.AlertType.ERROR);
+                    return;
+                }
+
                 selectedEquipement.setNom(nom);
                 selectedEquipement.setDescription(description);
                 selectedEquipement.setEtat(etat);
                 selectedEquipement.setTypeEquipement(type);
                 selectedEquipement.setQuantite(quantite);
 
-                // Mettre à jour l'équipement
                 equipementService.edit(selectedEquipement);
 
-                // Réactualiser la TableView
                 loadEquipements();
-
-                showAlert("Modification Réussie", "L'équipement a été modifié avec succès", AlertType.INFORMATION);
-            } catch (Exception e) {
-                showAlert("Erreur", "Veuillez remplir tous les champs correctement", AlertType.ERROR);
+                clearFields();
+                showAlert("Modification Réussie", "L'équipement a été modifié avec succès.", Alert.AlertType.INFORMATION);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                showAlert("Erreur", "Impossible de modifier l'équipement.", Alert.AlertType.ERROR);
             }
         } else {
-            showAlert("Sélectionnez un équipement", "Veuillez sélectionner un équipement à modifier", AlertType.WARNING);
+            showAlert("Sélectionnez un équipement", "Veuillez sélectionner un équipement à modifier.", Alert.AlertType.WARNING);
         }
     }
 
@@ -146,26 +117,47 @@ public class EquipementController {
 
         if (selectedEquipement != null) {
             try {
-                // Supprimer l'équipement
                 equipementService.delete(selectedEquipement);
-
-                // Réactualiser la TableView
                 loadEquipements();
-
-                showAlert("Suppression Réussie", "L'équipement a été supprimé avec succès", AlertType.INFORMATION);
-            } catch (Exception e) {
-                showAlert("Erreur", "Une erreur est survenue lors de la suppression de l'équipement", AlertType.ERROR);
+                clearFields();
+                showAlert("Suppression Réussie", "L'équipement a été supprimé avec succès.", Alert.AlertType.INFORMATION);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                showAlert("Erreur", "Une erreur est survenue lors de la suppression de l'équipement.", Alert.AlertType.ERROR);
             }
         } else {
-            showAlert("Sélectionnez un équipement", "Veuillez sélectionner un équipement à supprimer", AlertType.WARNING);
+            showAlert("Sélectionnez un équipement", "Veuillez sélectionner un équipement à supprimer.", Alert.AlertType.WARNING);
         }
     }
 
     private void loadEquipements() {
-        equipementTable.getItems().setAll(equipementService.getAll());
+        try {
+            List<Equipement> equipements = equipementService.getAll();
+            equipementTable.getItems().setAll(equipements);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            showAlert("Erreur", "Impossible de récupérer la liste des équipements.", Alert.AlertType.ERROR);
+        }
     }
 
-    private void showAlert(String title, String message, AlertType alertType) {
+    private void clearFields() {
+        nomField.clear();
+        descriptionField.clear();
+        etatComboBox.getSelectionModel().clearSelection();
+        typeComboBox.getSelectionModel().clearSelection();
+        quantiteField.clear();
+    }
+
+    private int parseQuantite(String text) {
+        try {
+            int quantite = Integer.parseInt(text);
+            return Math.max(0, quantite); // Empêche les valeurs négatives
+        } catch (NumberFormatException e) {
+            return -1; // Code d'erreur
+        }
+    }
+
+    private void showAlert(String title, String message, Alert.AlertType alertType) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setHeaderText(null);
@@ -173,3 +165,4 @@ public class EquipementController {
         alert.showAndWait();
     }
 }
+

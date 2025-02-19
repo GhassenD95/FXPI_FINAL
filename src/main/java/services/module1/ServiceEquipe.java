@@ -25,8 +25,35 @@ public class ServiceEquipe extends BaseService implements IService<Equipe> {
         stmt.setString(2, equipe.getDivision().name());
         stmt.setString(3, equipe.getSport().name());
         stmt.setBoolean(4, equipe.isLocal());
+    }
 
-        ServiceUtilisateur serviceUtilisateur = new ServiceUtilisateur();
+    @Override
+    public void edit(Equipe equipe) throws SQLException {
+
+    }
+
+    @Override
+    public void delete(Equipe equipe) throws SQLException {
+
+    }
+
+    @Override
+    public Equipe get(Equipe equipe) throws SQLException {
+        return null;
+    }
+
+    @Override
+    public Equipe get(int id) throws SQLException {
+        return null;
+    }
+
+    @Override
+    public List<Equipe> getAll() throws SQLException {
+        return List.of();
+    }
+}
+
+        /*ServiceUtilisateur serviceUtilisateur = new ServiceUtilisateur();
         //check if coach exists in obj and checks if user exists in db to assign it or else excpetion constraint
         if(equipe.getCoach() != null && serviceUtilisateur.get(equipe.getCoach()) != null) {
             stmt.setInt(5, serviceUtilisateur.get(equipe.getCoach()).getId());
@@ -165,7 +192,7 @@ public class ServiceEquipe extends BaseService implements IService<Equipe> {
 
             int coach_id_fromDB = rs.getInt("coach_id");
             if (rs.wasNull()) {
-                returnedEquipe.setCoach(null);
+                returnedEquipe.setCoach(null);//ddssd
             } else {
                 returnedEquipe.setCoach(serviceUtilisateur.get(coach_id));
             }
@@ -177,6 +204,7 @@ public class ServiceEquipe extends BaseService implements IService<Equipe> {
             //returnedEquipe.setEntrainments(entrainments);
 
             returnedEquipes.add(returnedEquipe);
+            System.out.println("dd");
 
         }
         return returnedEquipes;
@@ -184,4 +212,4 @@ public class ServiceEquipe extends BaseService implements IService<Equipe> {
 
 
 
-}
+}*/
