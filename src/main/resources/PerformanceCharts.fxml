@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.image.Image?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/22.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PerformanceChartsController">
+    <!-- Background Image -->
+    <ImageView fitHeight="556.0" fitWidth="945.0" pickOnBounds="true" layoutX="0.0" layoutY="0.0">
+        <image>
+            <Image url="@images/crud.jpg" />
+        </image>
+    </ImageView>
+
+    <!-- PieChart for Top Teams (Most Wins, Least Losses) -->
+    <PieChart fx:id="pieChart" layoutX="72.0" layoutY="150.0" prefHeight="200.0" prefWidth="300.0" />
+
+    <!-- BarChart for Team Rankings -->
+    <BarChart fx:id="barChart" layoutX="400.0" layoutY="150.0" prefHeight="200.0" prefWidth="300.0">
+        <xAxis>
+            <CategoryAxis fx:id="xAxis"/>
+        </xAxis>
+        <yAxis>
+            <NumberAxis fx:id="yAxis"/>
+        </yAxis>
+    </BarChart>
+
+</AnchorPane>

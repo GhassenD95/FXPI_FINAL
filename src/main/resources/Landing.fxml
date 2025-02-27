@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Landing">
+   <children>
+      <ImageView fitHeight="458.0" fitWidth="780.0" layoutY="-7.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/admin.png" />
+         </image>
+      </ImageView>
+
+      <Button fx:id="tournoiButton" layoutX="31.0" layoutY="190.0" mnemonicParsing="false" onAction="#handleTournoiButtonAction" prefHeight="26.0" prefWidth="93.0" styleClass="buttonADD" stylesheets="@css/styling.css" text="Tournois" />
+      <Button fx:id="performanceListButton" layoutX="31.0" layoutY="141.0" mnemonicParsing="false" onAction="#handlePerformanceListButtonAction" prefHeight="26.0" prefWidth="94.0" styleClass="buttonADD" stylesheets="@css/styling.css" text="Performances" />
+   </children>
+</AnchorPane>
