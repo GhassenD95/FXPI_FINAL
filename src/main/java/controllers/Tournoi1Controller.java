@@ -1,149 +1,163 @@
 package controllers;
 
+import com.google.gson.JsonObject;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 import models.module4.Tournois;
-import services.module4.Service1Tournois;
+import services.module4.ServiceTournois;
 
 import java.io.IOException;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.List;
 
 public class Tournoi1Controller {
 
     @FXML
-    private TableView<Tournois> tableView;
+    public Label weatherLabel;
+    @FXML
+    public ImageView weatherIcon;
+    @FXML
+    private ListView<Tournois> listView;
+    @FXML
+    private TextField searchField;
 
     @FXML
-    private TableColumn<Tournois, String> nameColumn;
-
-    @FXML
-    private TableColumn<Tournois, String> addressColumn;
-
-    @FXML
-    private TableColumn<Tournois, String> sportColumn;
-
-    @FXML
-    private TableColumn<Tournois, Date> dateDebutColumn;
-
-    @FXML
-    private TableColumn<Tournois, Date> dateFinColumn;
-
-    @FXML
-    private TableColumn<Tournois, Void> actionColumn;
+    private Button searchButton;
 
     private ObservableList<Tournois> tournoisList = FXCollections.observableArrayList();
 
+
     @FXML
     public void initialize() {
-        // Initialize the columns
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("nom"));
-        addressColumn.setCellValueFactory(new PropertyValueFactory<>("adresse"));
-        sportColumn.setCellValueFactory(new PropertyValueFactory<>("sport"));
-        dateDebutColumn.setCellValueFactory(new PropertyValueFactory<>("dateDebut"));
-        dateFinColumn.setCellValueFactory(new PropertyValueFactory<>("dateFin"));
-
-        // Add cell factory for action buttons
-        addButtonToTable();
-
-        // Load data from the database
         loadTournoisData();
+        loadTournoisData();
+        listView.setCellFactory(param -> new TournoiListCell());
     }
 
     private void loadTournoisData() {
-        Service1Tournois serviceTournois = new Service1Tournois();
+        ServiceTournois serviceTournois = new ServiceTournois();
         try {
             List<Tournois> tournois = serviceTournois.getAll();
             tournoisList.setAll(tournois);
-            tableView.setItems(tournoisList);
+            listView.setItems(tournoisList);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    private void handleSearch(ActionEvent event) {
+        String searchText = searchField.getText();
+        ServiceTournois serviceTournois = new ServiceTournois();
+        try {
+            List<Tournois> filteredTournois = serviceTournois.rechercheDynamique(searchText);
+            tournoisList.setAll(filteredTournois);
+            listView.setItems(tournoisList);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    private void addButtonToTable() {
-        Callback<TableColumn<Tournois, Void>, TableCell<Tournois, Void>> cellFactory = new Callback<>() {
-            @Override
-            public TableCell<Tournois, Void> call(final TableColumn<Tournois, Void> param) {
-                final TableCell<Tournois, Void> cell = new TableCell<>() {
+    public void navigateToTournoi(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Tournoi.fxml"));
+            Parent root = loader.load();
 
-                    private final Button modifyButton = new Button();
-                    private final Button deleteButton = new Button();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
 
-                    {
-                        ImageView modifyImageView = new ImageView(new Image(getClass().getResourceAsStream("/images/vector.png")));
-                        modifyImageView.setFitHeight(12);
-                        modifyImageView.setFitWidth(12);
-                        modifyButton.setGraphic(modifyImageView);
-                        modifyButton.getStyleClass().add("modify-button");
+            stage.setOnHidden(event -> loadTournoisData());
 
-                        ImageView deleteImageView = new ImageView(new Image(getClass().getResourceAsStream("/images/trash.png")));
-                        deleteImageView.setFitHeight(12);
-                        deleteImageView.setFitWidth(12);
-                        deleteButton.setGraphic(deleteImageView);
-                        deleteButton.getStyleClass().add("delete-button");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-                        modifyButton.setOnAction(event -> {
-                            Tournois data = getTableView().getItems().get(getIndex());
-                            openUpdateDialog(data);
-                        });
+    private class TournoiListCell extends ListCell<Tournois> {
+        private final HBox content;
+        private final VBox infoBox;
+        private final Text nameText;
+        private final Text addressText;
+        private final Text sportText;
+        private final Button modifyButton;
+        private final Button deleteButton;
 
-                        deleteButton.setOnAction(event -> {
-                            Tournois data = getTableView().getItems().get(getIndex());
-                            deleteTournois(data);
-                        });
-                    }
-                    private LocalDate convertToLocalDate(Date date) {
-                        if (date == null) {
-                            return null;
-                        }
-                        return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                    }
+        public TournoiListCell() {
+            nameText = new Text();
+            nameText.setFont(Font.font("Arial", 14));
+            nameText.setFill(Color.web("#043873"));
 
-                    @Override
-                    public void updateItem(Void item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty) {
-                            setGraphic(null);
-                        } else {
-                            HBox buttons = new HBox(10, modifyButton, deleteButton); // 10 is the spacing between buttons
-                            buttons.setAlignment(javafx.geometry.Pos.CENTER); // Align buttons in the center
-                            setGraphic(buttons);
-                        }
-                    }
-                };
-                return cell;
+            addressText = new Text();
+            addressText.setFont(Font.font("Arial", 14));
+            addressText.setFill(Color.web("#555"));
+
+            sportText = new Text();
+            sportText.setFont(Font.font("Arial", 14));
+            sportText.setFill(Color.web("#28a745"));
+
+            infoBox = new VBox(5, nameText, addressText, sportText);
+            infoBox.setStyle("-fx-padding: 10px;");
+
+            modifyButton = new Button();
+            ImageView modifyImageView = new ImageView(new Image(getClass().getResourceAsStream("/images/vector.png")));
+            modifyImageView.setFitHeight(15);
+            modifyImageView.setFitWidth(15);
+            modifyButton.setGraphic(modifyImageView);
+            modifyButton.getStyleClass().add("icon-button");
+
+            deleteButton = new Button();
+            ImageView deleteImageView = new ImageView(new Image(getClass().getResourceAsStream("/images/trash.png")));
+            deleteImageView.setFitHeight(15);
+            deleteImageView.setFitWidth(15);
+            deleteButton.setGraphic(deleteImageView);
+            deleteButton.getStyleClass().add("icon-button");
+
+            HBox buttonsBox = new HBox(10, modifyButton, deleteButton);
+            buttonsBox.setStyle("-fx-padding: 10px;");
+
+            content = new HBox(20, infoBox, buttonsBox);
+            content.setSpacing(15);
+            content.setStyle("-fx-padding: 10px; -fx-border-color: #ddd; -fx-background-color: #f8f9fa;");
+
+            modifyButton.setOnAction(event -> openUpdateDialog(getItem()));
+            deleteButton.setOnAction(event -> deleteTournois(getItem()));
+        }
+
+        @Override
+        protected void updateItem(Tournois tournois, boolean empty) {
+            super.updateItem(tournois, empty);
+            if (empty || tournois == null) {
+                setGraphic(null);
+            } else {
+                nameText.setText("Name: " + tournois.getNom());
+                addressText.setText("Address: " + tournois.getAdresse());
+                sportText.setText("Sport: " + tournois.getSport());
+                setGraphic(content);
             }
-        };
-
-        actionColumn.setCellFactory(cellFactory);
+        }
     }
 
     private void deleteTournois(Tournois tournois) {
-        Service1Tournois serviceTournois = new Service1Tournois();
+        ServiceTournois serviceTournois = new ServiceTournois();
         serviceTournois.delete(tournois);
         tournoisList.remove(tournois);
     }
-
 
     private void openUpdateDialog(Tournois tournois) {
         try {
@@ -158,10 +172,26 @@ public class Tournoi1Controller {
             stage.setScene(new Scene(parent));
             stage.showAndWait();
 
-            // Refresh the table after the update
             loadTournoisData();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+    @FXML
+    public void openTournoisDialog() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Tournoi.fxml"));
+            Parent parent = loader.load();
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(new Scene(parent));
+            stage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }

@@ -1,34 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="556.0" prefWidth="945.0" style=";" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Tournoi1Controller">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="556.0" prefWidth="945.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Tournoi1Controller">
     <children>
         <ImageView fitHeight="556.0" fitWidth="945.0" pickOnBounds="true">
             <image>
                 <Image url="@images/crud.jpg" />
             </image>
         </ImageView>
-        <Text fill="#043873" layoutX="72.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Liste des Tournois" wrappingWidth="265.70770263671864">
+
+        <Text fill="#043873" layoutX="72.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Liste des Tournois" wrappingWidth="265.70770263671864">
             <font>
-                <Font name="Arial" size="17.0" />
+                <Font name="Arial Bold" size="17.0" />
             </font>
         </Text>
-        <TableView fx:id="tableView" layoutX="72.0" layoutY="113.0" prefHeight="372.0" prefWidth="750.0" stylesheets="@css/styling.css">
-            <columns>
-                <TableColumn fx:id="nameColumn" prefWidth="97.6" text="Name" />
-                <TableColumn fx:id="addressColumn" prefWidth="118.4" text="Address" />
-                <TableColumn fx:id="sportColumn" prefWidth="106.4" text="Sport" />
-                <TableColumn fx:id="dateDebutColumn" prefWidth="123.2" text="Start Date" />
-                <TableColumn fx:id="dateFinColumn" prefWidth="118.4" text="End Date" />
-                <TableColumn fx:id="actionColumn" prefWidth="182.8" text="Action" />
-            </columns>
-        </TableView>
+        <TextField fx:id="searchField" layoutX="72.0" layoutY="79.0" prefHeight="25.0" prefWidth="224.0" promptText="Search..." />
+        <Button fx:id="searchButton" layoutX="308.0" layoutY="78.0" onAction="#handleSearch" text="Search" />
+        <ListView fx:id="listView" layoutX="72.0" layoutY="113.0" prefHeight="372.0" prefWidth="750.0" stylesheets="@css/styling.css" />
+        <Button fx:id="AddButton" layoutX="72.0" layoutY="500.0" onAction="#navigateToTournoi" styleClass="buttonADD" stylesheets="@css/styling.css" text="Ajouter un Tournoi" />
+
+
     </children>
+
 </Pane>

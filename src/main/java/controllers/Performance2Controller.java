@@ -7,8 +7,8 @@ import models.module1.Equipe;
 import models.module4.PerformanceEquipe;
 import models.module4.Tournois;
 import services.module1.ServiceEquipe;
-import services.module4.Service1PerformanceEquipe;
-import services.module4.Service1Tournois;
+import services.module4.ServicePerformanceEquipe;
+import services.module4.ServiceTournois;
 
 import java.sql.SQLException;
 
@@ -31,8 +31,8 @@ public class Performance2Controller {
 
     public void setPerformance(PerformanceEquipe performance) {
         this.performance = performance;
-        equipeField.setText(String.valueOf(performance.getEquipe().getId()));
-        tournoisField.setText(String.valueOf(performance.getTournois().getId()));
+        equipeField.setText(String.valueOf(performance.getEquipe().getNom()));
+        tournoisField.setText(String.valueOf(performance.getTournois().getNom()));
         victoiresField.setText(String.valueOf(performance.getVictoires()));
         pertesField.setText(String.valueOf(performance.getPertes()));
         rangField.setText(String.valueOf(performance.getRang()));
@@ -41,14 +41,12 @@ public class Performance2Controller {
     @FXML
     private void handleValiderButtonAction() {
         try {
-            // Vérification si les champs sont vides
             if (equipeField.getText().isEmpty() || tournoisField.getText().isEmpty() ||
                     victoiresField.getText().isEmpty() || pertesField.getText().isEmpty() || rangField.getText().isEmpty()) {
                 showAlert(Alert.AlertType.ERROR, "Validation Error", "Tous les champs doivent être remplis.");
                 return;
             }
 
-            // Parse the IDs and numeric fields
             int equipeId, tournoisId, victoires, pertes, rang;
             try {
                 equipeId = Integer.parseInt(equipeField.getText());
@@ -63,7 +61,7 @@ public class Performance2Controller {
 
             // Retrieve the Equipe and Tournois objects based on the IDs
             ServiceEquipe serviceEquipe = new ServiceEquipe();
-            Service1Tournois serviceTournois = new Service1Tournois();
+            ServiceTournois serviceTournois = new ServiceTournois();
 
             Equipe equipe = serviceEquipe.get(equipeId);
             if (equipe == null) {
@@ -77,15 +75,13 @@ public class Performance2Controller {
                 return;
             }
 
-            // Set the retrieved objects in the PerformanceEquipe object
             performance.setEquipe(equipe);
             performance.setTournois(tournois);
             performance.setVictoires(victoires);
             performance.setPertes(pertes);
             performance.setRang(rang);
 
-            // Update the performance
-            Service1PerformanceEquipe servicePerformanceEquipe = new Service1PerformanceEquipe();
+            ServicePerformanceEquipe servicePerformanceEquipe = new ServicePerformanceEquipe();
             servicePerformanceEquipe.update(performance);
 
             showAlert(Alert.AlertType.INFORMATION, "Success", "La performance a été mise à jour avec succès!");

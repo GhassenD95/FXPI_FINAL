@@ -27,20 +27,23 @@
         <TextField fx:id="victoiresField" layoutX="205.0" layoutY="208.0" prefHeight="25.0" prefWidth="275.0" />
         <TextField fx:id="pertesField" layoutX="205.0" layoutY="258.0" prefHeight="25.0" prefWidth="275.0" />
         <TextField fx:id="rangField" layoutX="205.0" layoutY="308.0" prefHeight="25.0" prefWidth="275.0" />
-        <ComboBox fx:id="tournoisComboBox" layoutX="205.0" layoutY="358.0" prefWidth="275.0" />        <Button fx:id="validerButton" layoutX="205.0" layoutY="408.0" mnemonicParsing="false" onAction="#handleValiderButtonAction" prefHeight="25.0" prefWidth="175.0" styleClass="buttonWithImage" stylesheets="@css/styling.css" text="Valider" textAlignment="CENTER" textFill="WHITE">
+        <ComboBox fx:id="tournoisComboBox" layoutX="205.0" layoutY="358.0" prefWidth="275.0" />
+        <Button fx:id="validerButton" layoutX="205.0" layoutY="408.0" mnemonicParsing="false" onAction="#handleValiderButtonAction" prefHeight="25.0" prefWidth="175.0" styleClass="buttonWithImage" stylesheets="@css/styling.css" text="Valider" textAlignment="CENTER" textFill="WHITE">
             <font>
                 <Font name="Arial" size="12.0" />
             </font>
         </Button>
         <Label layoutX="205.0" layoutY="139.0" prefHeight="17.0" prefWidth="82.0" text="Equipe" />
-        <Label layoutX="205.0" layoutY="191.0" prefHeight="17.0" prefWidth="82.0" text="Victoires" />
-        <Label layoutX="205.0" layoutY="241.0" prefHeight="17.0" prefWidth="82.0" text="Pertes" />
+        <Label layoutX="205.0" layoutY="191.0" prefHeight="17.0" prefWidth="82.0" text="Buts" />
+        <Label layoutX="205.0" layoutY="241.0" prefHeight="17.0" prefWidth="82.0" text="Fautes" />
         <Label layoutX="205.0" layoutY="291.0" prefHeight="17.0" prefWidth="82.0" text="Rang" />
         <Label layoutX="205.0" layoutY="341.0" prefHeight="17.0" prefWidth="82.0" text="Tournois" />
         <Text fill="#043873" layoutX="210.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter une Performance" wrappingWidth="265.70770263671864">
             <font>
                 <Font name="Arial" size="23.0" />
             </font>
+
         </Text>
+
     </children>
 </Pane>

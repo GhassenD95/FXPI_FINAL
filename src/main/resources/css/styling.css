@@ -1,16 +1,23 @@
 .buttonWithImage {
-    -fx-background-image: url("/images/Rectangle1.png"); /* Adjust the path accordingly */
-    -fx-background-size: cover; /* Makes sure the image covers the whole button */
-    -fx-background-position: center; /* Centers the image */
-    -fx-background-repeat: no-repeat; /* Prevents the image from repeating */
+    -fx-background-color: #ADD8E6; /* Light blue background */
+    -fx-background-radius: 15px; /* Rounded corners */
     -fx-pref-width: 175px;
     -fx-pref-height: 25px; /* Set the preferred height */
-
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 4, 0, 2, 2); /* Shadow */
+    -fx-text-fill: white; /* Text color */
+    -fx-font-weight: bold; /* Bold text */
+}
+.buttonADD {
+    -fx-background-color: #4F9CF9; /* Light blue background */
+    -fx-background-radius: 8px; /* Rounded corners */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 4, 0, 2, 2); /* Shadow */
+    -fx-text-fill: white; /* Text color */
+    -fx-font-weight: bold; /* Bold text */
 }
 
 .buttonWithImage:hover {
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 6, 0, 3, 3); /* Shadow on hover */
+    -fx-background-color: #87CEEB; /* Slightly darker blue on hover */
 }
 
 .responsive-table {
@@ -54,4 +61,21 @@
 .delete-button {
     -fx-background-color: transparent;
     -fx-padding: 0;
+}
+.list-cell {
+    -fx-background-color: #f8f9fa;
+    -fx-border-color: #dcdcdc;
+    -fx-border-width: 1px;
+    -fx-padding: 10px;
+    -fx-alignment: center-left;
+}
+
+.icon-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-cursor: hand;
+}
+
+.icon-button:hover {
+    -fx-opacity: 0.7;
 }

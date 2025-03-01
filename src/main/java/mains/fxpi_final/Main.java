@@ -1,6 +1,5 @@
 package mains.fxpi_final;
-import controllers.PerformanceController;
-import controllers.TournoiController;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -16,19 +15,13 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        // Create an instance of FXMLLoader
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Tournoi1.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Calendar.fxml"));
 
-
-
-        // Load the FXML file into a Pane (or other layout)
         Pane root = loader.load();
 
-        // Create a Scene and set it on the stage
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
 
-        // Show the Stage (window)
         primaryStage.show();
     }
 }

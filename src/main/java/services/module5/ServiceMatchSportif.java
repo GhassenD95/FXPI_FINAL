@@ -3,9 +3,8 @@ package services.module5;
 import models.module5.MatchSportif;
 import services.BaseService;
 import services.IService;
-import services.IService1;
 import services.module1.ServiceEquipe;
-import services.module4.Service1Tournois;
+import services.module4.ServiceTournois;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -60,7 +59,7 @@ public class ServiceMatchSportif extends BaseService implements IService<MatchSp
             matchSportif.setId(rs.getInt("id"));
             matchSportif.setEquipe1(new ServiceEquipe().get(rs.getInt("equipe1_id")));
             matchSportif.setEquipe2(new ServiceEquipe().get(rs.getInt("equipe2_id")));
-            matchSportif.setTournois(new Service1Tournois().get(rs.getInt("tournois_id")));
+            matchSportif.setTournois(new ServiceTournois().get(rs.getInt("tournois_id")));
             matchSportif.setDate(rs.getTimestamp("date").toLocalDateTime());
             matchSportif.setLieu(rs.getString("lieu"));
             return matchSportif;
@@ -80,7 +79,7 @@ public class ServiceMatchSportif extends BaseService implements IService<MatchSp
             matchSportif.setId(rs.getInt("id"));
             matchSportif.setEquipe1(new ServiceEquipe().get(rs.getInt("equipe1_id")));
             matchSportif.setEquipe2(new ServiceEquipe().get(rs.getInt("equipe2_id")));
-            matchSportif.setTournois(new Service1Tournois().get(rs.getInt("tournois_id")));
+            matchSportif.setTournois(new ServiceTournois().get(rs.getInt("tournois_id")));
             matchSportif.setDate(rs.getTimestamp("date").toLocalDateTime());
             matchSportif.setLieu(rs.getString("lieu"));
 
@@ -100,7 +99,7 @@ public class ServiceMatchSportif extends BaseService implements IService<MatchSp
             matchSportif.setId(rs.getInt("id"));
             matchSportif.setEquipe1(new ServiceEquipe().get(rs.getInt("equipe1_id")));
             matchSportif.setEquipe2(new ServiceEquipe().get(rs.getInt("equipe2_id")));
-            matchSportif.setTournois(new Service1Tournois().get(rs.getInt("tournois_id")));
+            matchSportif.setTournois(new ServiceTournois().get(rs.getInt("tournois_id")));
             matchSportif.setDate(rs.getTimestamp("date").toLocalDateTime());
             matchSportif.setLieu(rs.getString("lieu"));
 

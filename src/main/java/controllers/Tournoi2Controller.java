@@ -10,7 +10,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import models.module4.Tournois;
 import enums.Sport;
-import services.module4.Service1Tournois;
+import services.module4.ServiceTournois;
 
 public class Tournoi2Controller {
 
@@ -36,7 +36,6 @@ public class Tournoi2Controller {
 
     @FXML
     private void initialize() {
-        // Initialize ComboBox with Sport values
         disciplineComboBox.getItems().setAll(Sport.values());
     }
 
@@ -61,7 +60,7 @@ public class Tournoi2Controller {
         tournois.setDateDebut(java.sql.Date.valueOf(dateDebutPicker.getValue()));
         tournois.setDateFin(java.sql.Date.valueOf(dateFinPicker.getValue()));
 
-        Service1Tournois serviceTournois = new Service1Tournois();
+        ServiceTournois serviceTournois = new ServiceTournois();
 
         serviceTournois.update(tournois);
         System.out.println("Tournoi has been updated!");

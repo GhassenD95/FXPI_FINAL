@@ -1,4 +1,4 @@
-package mains.fxpi_final;
+package controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
