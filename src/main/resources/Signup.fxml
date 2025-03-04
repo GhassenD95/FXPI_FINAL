@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SignUpController"
+            style="-fx-background-color: #f0f0f0;">
+    <children>
+        <VBox alignment="CENTER" spacing="20" style="-fx-padding: 30;">
+
+            <Label text="Création de Compte" style="-fx-font-size: 24; -fx-font-weight: bold;"/>
+
+            <!-- Formulaire principal -->
+            <GridPane hgap="15" vgap="10" style="-fx-background-color: #fff; -fx-padding: 20; -fx-border-color: #ccc;">
+
+                <!-- Row 0 : Prenom / Nom -->
+                <Label text="Prénom:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <TextField fx:id="prenomField" promptText="Votre prénom"
+                           GridPane.rowIndex="0" GridPane.columnIndex="1" prefWidth="150"/>
+
+                <Label text="Nom:" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                <TextField fx:id="nomField" promptText="Votre nom"
+                           GridPane.rowIndex="0" GridPane.columnIndex="3" prefWidth="150"/>
+
+                <!-- Row 1 : Date de naissance / Téléphone -->
+                <Label text="Date de Naissance:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <DatePicker fx:id="birthdayPicker" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                <Label text="Téléphone:" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                <TextField fx:id="telField" promptText="Ex: 12345678"
+                           GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+
+                <!-- Row 2 : Adresse / Email -->
+                <Label text="Adresse:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <TextField fx:id="adresseField" promptText="Votre adresse"
+                           GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                <Label text="Email:" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+                <TextField fx:id="emailField" promptText="exemple@domaine.com"
+                           GridPane.rowIndex="2" GridPane.columnIndex="3"/>
+
+                <!-- Row 3 : Mot de passe / Confirmation -->
+                <Label text="Mot de passe:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                <PasswordField fx:id="passwordField" promptText="Votre mot de passe"
+                               GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                <Label text="Confirmer:" GridPane.rowIndex="3" GridPane.columnIndex="2"/>
+                <PasswordField fx:id="repasswordField" promptText="Confirmer mot de passe"
+                               GridPane.rowIndex="3" GridPane.columnIndex="3"/>
+            </GridPane>
+
+            <!-- Section pour l'image -->
+            <HBox spacing="15" alignment="CENTER">
+                <VBox alignment="CENTER" spacing="5">
+                    <ImageView fx:id="imageView" fitWidth="120" fitHeight="120" preserveRatio="true"
+                               style="-fx-border-color: #ccc; -fx-border-width: 1px;"/>
+                    <Button text="Choisir Image" onAction="#chooseImage"
+                            style="-fx-background-color: #007bff; -fx-text-fill: white;"/>
+                    <Label fx:id="imagePathLabel" text="Aucune image" style="-fx-font-size: 12px;"/>
+                </VBox>
+            </HBox>
+
+            <!-- Bouton Sign Up -->
+            <Button text="Créer le Compte" onAction="#handleSignUp"
+                    style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-font-size: 14px;"/>
+
+            <!-- Label d'erreur/succès -->
+            <Label fx:id="errorLabel" textFill="red" style="-fx-font-size: 12px;" />
+
+            <!-- Lien pour retourner Sign In -->
+            <Hyperlink text="Retour à la connexion" onAction="#handleBackToSignIn" style="-fx-font-size: 12px;"/>
+        </VBox>
+    </children>
+</AnchorPane>

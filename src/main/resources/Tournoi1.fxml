@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="556.0" prefWidth="945.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Tournoi1Controller">
+    <children>
+        <ImageView fitHeight="556.0" fitWidth="945.0" pickOnBounds="true">
+            <image>
+                <Image url="@images/crud.jpg" />
+            </image>
+        </ImageView>
+
+        <Text fill="#043873" layoutX="72.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Liste des Tournois" wrappingWidth="265.70770263671864">
+            <font>
+                <Font name="Arial Bold" size="17.0" />
+            </font>
+        </Text>
+        <TextField fx:id="searchField" layoutX="72.0" layoutY="79.0" prefHeight="25.0" prefWidth="224.0" promptText="Search..." />
+        <Button fx:id="searchButton" layoutX="308.0" layoutY="78.0" onAction="#handleSearch" text="Search" />
+        <ListView fx:id="listView" layoutX="72.0" layoutY="113.0" prefHeight="372.0" prefWidth="750.0" stylesheets="@css/styling.css" />
+        <Button fx:id="AddButton" layoutX="72.0" layoutY="500.0" onAction="#navigateToTournoi" styleClass="buttonADD" stylesheets="@css/styling.css" text="Ajouter un Tournoi" />
+
+
+    </children>
+
+</Pane>

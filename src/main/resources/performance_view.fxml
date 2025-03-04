@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+
+<?import javafx.geometry.Insets?>
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.PerformanceAthleteController">
+
+    <center>
+        <VBox spacing="10" style="-fx-padding: 10;">
+            <GridPane hgap="10" vgap="10">
+                <padding>
+                    <Insets top="10" right="10" bottom="10" left="10"/>
+                </padding>
+
+                <!-- Labels -->
+                <Label text="Athlete ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <Label text="Match ID:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <Label text="Minutes Jouées:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <Label text="Buts:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                <Label text="Passes Décisives:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                <Label text="Tirs:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                <Label text="Interceptions:" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+                <Label text="Fautes:" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
+                <Label text="Cartons Jaunes:" GridPane.rowIndex="8" GridPane.columnIndex="0"/>
+                <Label text="Cartons Rouges:" GridPane.rowIndex="9" GridPane.columnIndex="0"/>
+                <Label text="Rebonds:" GridPane.rowIndex="10" GridPane.columnIndex="0"/>
+
+                <!-- Input Fields -->
+                <TextField fx:id="athleteIdField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                <TextField fx:id="matchIdField" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                <TextField fx:id="minutesJoueesField" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                <TextField fx:id="butsField" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                <TextField fx:id="passesDecisivesField" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+                <TextField fx:id="tirsField" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+                <TextField fx:id="interceptionsField" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+                <TextField fx:id="fautesField" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+                <TextField fx:id="cartonsJaunesField" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
+                <TextField fx:id="cartonsRougesField" GridPane.rowIndex="9" GridPane.columnIndex="1"/>
+                <TextField fx:id="rebondsField" GridPane.rowIndex="10" GridPane.columnIndex="1"/>
+            </GridPane>
+
+            <Label fx:id="errorLabel" style="-fx-text-fill: red;"/>
+
+            <!-- Buttons -->
+            <HBox spacing="10">
+                <Button text="Ajouter" onAction="#ajouterPerformance"/>
+                <Button text="Modifier" onAction="#modifierPerformance"/>
+                <Button text="Supprimer" onAction="#supprimerPerformance"/>
+            </HBox>
+
+            <!-- TableView -->
+            <TableView fx:id="performanceTable">
+                <columns>
+                    <TableColumn text="ID" fx:id="idColumn" />
+                    <TableColumn text="Athlete ID" fx:id="athleteColumn"/>
+                    <TableColumn text="Match ID" fx:id="matchColumn"/>
+                    <TableColumn text="Minutes Jouées" fx:id="minutesColumn"/>
+                    <TableColumn text="Buts" fx:id="butsColumn"/>
+                    <TableColumn text="Passes Décisives" fx:id="passesColumn"/>
+                    <TableColumn text="Tirs" fx:id="tirsColumn"/>
+                    <TableColumn text="Interceptions" fx:id="interceptionsColumn"/>
+                    <TableColumn text="Fautes" fx:id="fautesColumn"/>
+                    <TableColumn text="Cartons Jaunes" fx:id="jaunesColumn"/>
+                    <TableColumn text="Cartons Rouges" fx:id="rougesColumn"/>
+                    <TableColumn text="Rebonds" fx:id="rebondsColumn"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </center>
+</BorderPane>

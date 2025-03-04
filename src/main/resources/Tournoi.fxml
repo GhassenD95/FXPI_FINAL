@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="556.0" prefWidth="945.0" style=";" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.TournoiController">
+    <ImageView fitHeight="556.0" fitWidth="945.0" pickOnBounds="true">
+        <image>
+            <Image url="@images/crud.jpg" />
+        </image>
+    </ImageView>
+    <ImageView fitHeight="431.0" fitWidth="614.0" layoutX="166.0" layoutY="66.0" pickOnBounds="true">
+        <image>
+            <Image url="@images/Card.png" />
+        </image>
+    </ImageView>
+    <TextField fx:id="nomField" layoutX="205.0" layoutY="156.0" prefHeight="25.0" prefWidth="275.0" />
+    <ComboBox fx:id="addressComboBox" layoutX="205.0" layoutY="208.0" prefHeight="25.0" prefWidth="275.0" />
+    <DatePicker fx:id="dateDebutPicker" layoutX="205.0" layoutY="308.0" />
+    <DatePicker fx:id="dateFinPicker" layoutX="205.0" layoutY="357.0" />
+    <ComboBox fx:id="disciplineComboBox" layoutX="205.0" layoutY="258.0" prefWidth="150.0" />
+    <Button fx:id="validerButton" layoutX="205.0" layoutY="402.0" mnemonicParsing="false" onAction="#handleValiderButtonAction" prefHeight="25.0" prefWidth="175.0" styleClass="buttonWithImage" stylesheets="@css/styling.css" text="Valider" textAlignment="CENTER" textFill="WHITE">
+        <font>
+            <Font name="Arial" size="12.0" />
+        </font>
+    </Button>
+    <Label layoutX="205.0" layoutY="139.0" prefHeight="17.0" prefWidth="82.0" text="Nom" />
+    <Label layoutX="205.0" layoutY="191.0" prefHeight="17.0" prefWidth="82.0" text="Adresse" />
+    <Label layoutX="205.0" layoutY="241.0" prefHeight="17.0" prefWidth="82.0" text="Discipline" />
+    <Label layoutX="205.0" layoutY="291.0" prefHeight="17.0" prefWidth="82.0" text="Date de début" />
+    <Label layoutX="205.0" layoutY="340.0" prefHeight="17.0" prefWidth="82.0" text="Date de fin" />
+
+    <Text fill="#043873" layoutX="210.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter un Tournoi" wrappingWidth="265.70770263671864">
+        <font>
+            <Font name="Arial" size="23.0" />
+        </font>
+    </Text>
+
+</Pane>

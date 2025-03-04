@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<VBox spacing="15" alignment="CENTER" style="-fx-padding: 20;" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controllers.MatchSportifController">
+
+    <Label text="Gestion des Matchs Sportifs" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+
+    <GridPane hgap="10" vgap="10">
+        <Label text="Tournoi ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <TextField fx:id="tournoisIdField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+        <Label text="Équipe 1 ID:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <TextField fx:id="equipe1IdField" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+        <Label text="Équipe 2 ID:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <TextField fx:id="equipe2IdField" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+        <Label text="Date:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+        <DatePicker fx:id="dateField" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+        <Label text="Lieu:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+        <TextField fx:id="lieuField" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+    </GridPane>
+
+    <Label fx:id="errorLabel" textFill="red"/>
+
+    <HBox spacing="15">
+        <Button text="Ajouter" onAction="#ajouterMatch"/>
+        <Button text="Mettre à jour" onAction="#modifierMatch"/>
+        <Button text="Supprimer" onAction="#supprimerMatch"/>
+    </HBox>
+
+    <TableView fx:id="matchTable">
+        <columns>
+            <TableColumn text="ID" fx:id="idColumn"/>
+            <TableColumn text="Tournoi" fx:id="tournoiColumn"/>
+            <TableColumn text="Équipe 1" fx:id="equipe1Column"/>
+            <TableColumn text="Équipe 2" fx:id="equipe2Column"/>
+            <TableColumn text="Date" fx:id="dateColumn"/>
+            <TableColumn text="Lieu" fx:id="lieuColumn"/>
+        </columns>
+    </TableView>
+
+</VBox>

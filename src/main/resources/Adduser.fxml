@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AddUserController">
+
+    <!-- Sidebar (Loaded from Sidebar.fxml) -->
+    <left>
+        <VBox fx:id="sidebarContainer" />
+    </left>
+
+    <!-- Main Content -->
+    <center>
+        <Pane>
+            <children>
+                <ImageView fitHeight="556.0" fitWidth="945.0" pickOnBounds="true">
+                    <image>
+                        <Image url="@images/crud.jpg" />
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="477.0" fitWidth="615.0" layoutX="166.0" layoutY="53.0" pickOnBounds="true">
+                    <image>
+                        <Image url="@images/Card.png" />
+                    </image>
+                </ImageView>
+
+                <VBox alignment="CENTER" layoutX="274.0" layoutY="47.0" prefHeight="441.0" prefWidth="398.0" spacing="15" style="-fx-padding: 20;">
+                    <!-- Title -->
+                    <Text fill="#043873" style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Ajouter un Utilisateur" wrappingWidth="300" />
+
+                    <!-- Form with fields -->
+                    <GridPane hgap="10" vgap="10">
+                        <columnConstraints>
+                            <ColumnConstraints halignment="RIGHT" />
+                            <ColumnConstraints hgrow="ALWAYS" />
+                        </columnConstraints>
+
+                        <!-- Prénom -->
+                        <Label text="Prénom:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                        <TextField fx:id="prenomField" promptText="Entrez le prénom" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                        <!-- Nom -->
+                        <Label text="Nom:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <TextField fx:id="nomField" promptText="Entrez le nom" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                        <!-- Email -->
+                        <Label text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                        <TextField fx:id="emailField" promptText="Entrez l'email" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                        <!-- Téléphone -->
+                        <Label text="Téléphone:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                        <TextField fx:id="telField" promptText="Entrez le téléphone" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+                        <!-- Adresse -->
+                        <Label text="Adresse:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                        <TextField fx:id="adresseField" promptText="Entrez l'adresse" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+                        <!-- Mot de passe -->
+                        <Label text="Mot de passe:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                        <PasswordField fx:id="passwordField" promptText="Entrez le mot de passe" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
+                        <!-- Confirmation du mot de passe -->
+                        <Label text="Confirmer le mot de passe:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+                        <PasswordField fx:id="repasswordField" promptText="Confirmez le mot de passe" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+
+                        <!-- Date de naissance -->
+                        <Label text="Date de naissance:" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+                        <DatePicker fx:id="birthdayPicker" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+
+                        <!-- Rôle -->
+                        <Label text="Rôle:" GridPane.columnIndex="0" GridPane.rowIndex="8" />
+                        <ComboBox fx:id="roleComboBox" promptText="Sélectionnez un rôle" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+
+                        <rowConstraints>
+                            <RowConstraints />
+                            <RowConstraints />
+                            <RowConstraints />
+                            <RowConstraints />
+                            <RowConstraints />
+                            <RowConstraints />
+                            <RowConstraints />
+                            <RowConstraints />
+                            <RowConstraints />
+                        </rowConstraints>
+                    </GridPane>
+
+                    <!-- Error message display -->
+                    <Label fx:id="errorLabel" style="-fx-font-size: 14px;" textFill="red" />
+
+                    <!-- Action Buttons -->
+                    <HBox spacing="15">
+                        <Button onAction="#saveUser" styleClass="buttonWithImage" stylesheets="@css/styling.css" text="Enregistrer" />
+                        <Button onAction="#closeWindow" styleClass="buttonWithImage" stylesheets="@css/styling.css" text="Retour" />
+                    </HBox>
+                </VBox>
+            </children>
+        </Pane>
+    </center>
+</BorderPane>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<VBox spacing="15" alignment="CENTER" style="-fx-padding: 20;" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UserController">
+
+    <Label text="Modifier un Utilisateur" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+
+    <GridPane hgap="10" vgap="10">
+        <Label text="Prénom:"/>
+        <TextField fx:id="prenomField"/>
+
+        <Label text="Nom:"/>
+        <TextField fx:id="nomField"/>
+
+        <Label text="Email:"/>
+        <TextField fx:id="emailField"/>
+
+        <Label text="Téléphone:"/>
+        <TextField fx:id="telField"/>
+
+        <Label text="Adresse:"/>
+        <TextField fx:id="adresseField"/>
+
+        <Label text="Date de naissance:"/>
+        <DatePicker fx:id="birthdayPicker"/>
+
+        <Label text="Nouveau mot de passe (laisser vide si inchangé):"/>
+        <PasswordField fx:id="passwordField"/>
+    </GridPane>
+
+    <HBox spacing="15">
+        <Button text="Enregistrer" onAction="#editUser" style="-fx-background-color: #ffc107; -fx-text-fill: white;"/>
+        <Button text="Annuler" onAction="#closeWindow" style="-fx-background-color: #6c757d; -fx-text-fill: white;"/>
+    </HBox>
+
+    <Label fx:id="errorLabel" style="-fx-text-fill: red;"/>
+
+</VBox>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PerformanceChartsController">
+    <!-- Background Image -->
+    <ImageView fitHeight="556.0" fitWidth="945.0" layoutX="0.0" layoutY="0.0" pickOnBounds="true">
+        <image>
+            <Image url="@images/crud.jpg" />
+        </image>
+    </ImageView>
+    <TextArea fx:id="txtReport" layoutY="65.0" prefHeight="270.0" prefWidth="328.0" />
+
+
+    <!-- PieChart for Top Teams (Most Wins, Least Losses) -->
+    <PieChart fx:id="pieChart" layoutX="709.0" layoutY="150.0" prefHeight="200.0" prefWidth="183.0" />
+
+    <!-- BarChart for Team Rankings -->
+    <BarChart fx:id="barChart" layoutX="351.0" layoutY="150.0" prefHeight="213.0" prefWidth="349.0">
+        <xAxis>
+            <CategoryAxis fx:id="xAxis" />
+        </xAxis>
+        <yAxis>
+            <NumberAxis fx:id="yAxis" />
+        </yAxis>
+    </BarChart>
+
+</AnchorPane>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Performance1Controller">
+    <!-- Background Image -->
+    <ImageView fitHeight="556.0" fitWidth="945.0" layoutX="0.0" layoutY="0.0" pickOnBounds="true">
+        <image>
+            <Image url="@images/crud.jpg" />
+        </image>
+    </ImageView>
+
+    <!-- Title Text -->
+    <Text fill="#043873" layoutX="72.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Liste des Performances" wrappingWidth="265.70770263671864">
+        <font>
+            <Font name="Arial Bold" size="17.0" />
+        </font>
+    </Text>
+    <TextField fx:id="searchField" layoutX="72.0" layoutY="80.0" prefHeight="26.0" prefWidth="225.0" promptText="Search..." />
+    <Button fx:id="searchButton" layoutX="315.0" layoutY="80.0" onAction="#handleSearch" text="Search" />
+
+    <!-- ListView for performances -->
+    <ListView fx:id="listView" layoutX="72.0" layoutY="113.0" prefHeight="372.0" prefWidth="750.0" />
+    <Button fx:id="navigateButton" layoutX="72.0" layoutY="500.0" onAction="#navigateToPerformance" styleClass="buttonADD" stylesheets="@css/styling.css" text="Ajouter" />
+    <Button fx:id="navigateButtonStat" layoutX="231.0" layoutY="500.0" onAction="#navigateToPerformanceCharts" styleClass="buttonADD" stylesheets="@css/styling.css" text="Voir les performances" />
+
+</AnchorPane>
