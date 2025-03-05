@@ -17,6 +17,7 @@ public class UserService {
 
 
     public void addUser(User user) throws SQLException {
+        String hashedPassword = BCrypt.hashpw(user.getMdpHash(), BCrypt.gensalt());
         String query = "INSERT INTO utilisateur (prenom, nom, role, birthday, tel, adresse, status, image_url, email, mdp_hash) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, user.getPrenom());
@@ -28,7 +29,7 @@ public class UserService {
         stmt.setString(7, user.getStatus());
         stmt.setString(8, user.getImageUrl());
         stmt.setString(9, user.getEmail());
-        stmt.setString(10, user.getMdpHash());
+        stmt.setString(10, hashedPassword);
         stmt.executeUpdate();
     }
 
@@ -56,7 +57,16 @@ public class UserService {
     }
 
     public void updateUser(User user) throws SQLException {
+        // Check if the password is already hashed. BCrypt hashes typically start with "$2a$", "$2b$", or "$2y$".
+        String passwordToStore = user.getMdpHash();
+        if (!(passwordToStore.startsWith("$2a$") || passwordToStore.startsWith("$2b$") || passwordToStore.startsWith("$2y$"))) {
+            // If not, hash it before storing
+            passwordToStore = BCrypt.hashpw(passwordToStore, BCrypt.gensalt());
+        }
+
+        // If status is null, default to "INACTIVE"
         String status = (user.getStatus() == null || user.getStatus().isEmpty()) ? "INACTIVE" : user.getStatus();
+
         String query = "UPDATE utilisateur SET prenom=?, nom=?, role=?, birthday=?, tel=?, adresse=?, status=?, image_url=?, email=?, mdp_hash=? WHERE id=?";
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, user.getPrenom());
@@ -68,10 +78,11 @@ public class UserService {
         stmt.setString(7, status);
         stmt.setString(8, user.getImageUrl());
         stmt.setString(9, user.getEmail());
-        stmt.setString(10, user.getMdpHash());
+        stmt.setString(10, passwordToStore);
         stmt.setInt(11, user.getId());
         stmt.executeUpdate();
     }
+
 
     public void deleteUser(int id) throws SQLException {
         String query = "DELETE FROM utilisateur WHERE id=?";
@@ -87,8 +98,14 @@ public class UserService {
 
         if (rs.next()) {
             String storedHash = rs.getString("mdp_hash");
-            if (BCrypt.checkpw(password, storedHash)) {
-                // Build User from DB result
+            // Trim the password input
+            String inputPassword = password.trim();
+
+            System.out.println("Plain text password: '" + inputPassword + "'");
+            System.out.println("Stored hash: " + storedHash);
+
+            if (BCrypt.checkpw(inputPassword, storedHash)) {
+                System.out.println("Password matches!");
                 return new User(
                         rs.getInt("id"),
                         rs.getString("prenom"),
@@ -102,10 +119,16 @@ public class UserService {
                         rs.getString("email"),
                         storedHash
                 );
+            } else {
+                System.out.println("Password does not match!");
             }
+        } else {
+            System.out.println("No user found with email: " + email);
         }
-        return null; // Invalid credentials
+        return null;
     }
+
+
 
     public boolean checkEmailExists(String email) throws SQLException {
         String sql = "SELECT id FROM utilisateur WHERE email=?";

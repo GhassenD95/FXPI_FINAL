@@ -1,56 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="controllers.TeamController"
-            style="-fx-background-color: #f4f4f4;">
+<BorderPane prefHeight="556.0" prefWidth="945.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.TeamController">
 
-    <children>
-        <VBox spacing="20" layoutX="20" layoutY="20" style="-fx-padding: 20;">
-            <!-- Titre -->
-            <Label text="Gestion des Teams" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+    <!-- Sidebar -->
+    <left>
+        <VBox fx:id="sidebarContainer" />
+    </left>
 
-            <!-- Formulaire de saisie -->
-            <GridPane hgap="15" vgap="10">
-                <!-- Nom -->
-                <Label text="Nom:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                <TextField fx:id="nomField" promptText="Nom du Team"
-                           GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+    <!-- Main Content -->
+    <center>
+        <Pane>
 
-                <!-- Division -->
-                <Label text="Division:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                <ComboBox fx:id="divisionCombo" promptText="Choisir Division"
-                          GridPane.rowIndex="1" GridPane.columnIndex="1"/>
 
-                <!-- Sport -->
-                <Label text="Sport:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                <ComboBox fx:id="sportCombo" promptText="Choisir Sport"
-                          GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+            <children>
 
-                <!-- Coach -->
-                <Label text="Coach:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                <ComboBox fx:id="coachCombo" promptText="Sélectionner un Coach"
-                          GridPane.rowIndex="3" GridPane.columnIndex="1"/>
-            </GridPane>
+                <ImageView fitHeight="556.0" fitWidth="945.0" pickOnBounds="true">
+                    <image>
+                        <Image url="@images/crud.jpg" />
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="490.0" fitWidth="615.0" layoutX="166.0" layoutY="53.0" pickOnBounds="true">
+                    <image>
+                        <Image url="@images/Card.png" />
+                    </image>
+                </ImageView>
+                <VBox alignment="CENTER" layoutX="214.0" layoutY="58.0" prefHeight="467.0" prefWidth="513.0" spacing="20" style="-fx-padding: 20;">
+                    <!-- Titre -->
+                    <Label alignment="CENTER" style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Gestion des Teams" />
 
-            <!-- Boutons CRUD -->
-            <HBox spacing="15">
-                <Button text="Add Team" onAction="#addTeam"/>
-                <Button text="Update Team" onAction="#updateTeam"/>
-                <Button text="Delete Team" onAction="#deleteTeam"/>
-            </HBox>
+                    <!-- Formulaire de saisie -->
+                    <GridPane hgap="15" vgap="10">
+                        <columnConstraints>
+                            <ColumnConstraints halignment="RIGHT" />
+                            <ColumnConstraints hgrow="ALWAYS" />
+                        </columnConstraints>
 
-            <!-- Table des Teams -->
-            <TableView fx:id="teamTable">
-                <columns>
-                    <TableColumn fx:id="colId" text="ID" minWidth="50"/>
-                    <TableColumn fx:id="colNom" text="Nom" minWidth="100"/>
-                    <TableColumn fx:id="colDivision" text="Division" minWidth="100"/>
-                    <TableColumn fx:id="colCoach" text="Coach (ID)" minWidth="80"/>
-                    <TableColumn fx:id="colSport" text="Sport" minWidth="100"/>
-                </columns>
-            </TableView>
-        </VBox>
-    </children>
-</AnchorPane>
+                        <!-- Nom -->
+                        <Label text="Nom:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                        <TextField fx:id="nomField" promptText="Nom du Team" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                        <!-- Division -->
+                        <Label text="Division:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <ComboBox fx:id="divisionCombo" promptText="Choisir Division" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                        <!-- Sport -->
+                        <Label text="Sport:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                        <ComboBox fx:id="sportCombo" promptText="Choisir Sport" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                        <!-- Coach -->
+                        <Label text="Coach:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                        <ComboBox fx:id="coachCombo" promptText="Sélectionner un Coach" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <rowConstraints>
+                     <RowConstraints />
+                     <RowConstraints />
+                     <RowConstraints />
+                     <RowConstraints />
+                  </rowConstraints>
+                    </GridPane>
+
+                    <!-- Boutons CRUD -->
+                    <HBox spacing="15">
+                        <Button onAction="#addTeam" text="Add Team" />
+                        <Button onAction="#updateTeam" text="Update Team" />
+                        <Button onAction="#deleteTeam" text="Delete Team" />
+                    </HBox>
+
+                    <!-- Table des Teams -->
+                    <TableView fx:id="teamTable" prefHeight="213.0" prefWidth="462.0">
+                        <columns>
+                            <TableColumn fx:id="colId" minWidth="50" text="ID" />
+                            <TableColumn fx:id="colNom" minWidth="100" text="Nom" />
+                            <TableColumn fx:id="colDivision" minWidth="100" text="Division" />
+                            <TableColumn fx:id="colCoach" minWidth="80" text="Coach (ID)" />
+                            <TableColumn fx:id="colSport" minWidth="100" text="Sport" />
+                        </columns>
+                    </TableView>
+                </VBox>
+            </children>
+        </Pane>
+    </center>
+</BorderPane>

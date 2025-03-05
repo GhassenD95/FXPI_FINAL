@@ -5,7 +5,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Performance1Controller">
+<BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Performance1Controller">
+    <left>
+        <VBox fx:id="sidebarContainer"/>
+    </left>
+
     <!-- Background Image -->
     <ImageView fitHeight="556.0" fitWidth="945.0" layoutX="0.0" layoutY="0.0" pickOnBounds="true">
         <image>
@@ -27,4 +31,4 @@
     <Button fx:id="navigateButton" layoutX="72.0" layoutY="500.0" onAction="#navigateToPerformance" styleClass="buttonADD" stylesheets="@css/styling.css" text="Ajouter" />
     <Button fx:id="navigateButtonStat" layoutX="231.0" layoutY="500.0" onAction="#navigateToPerformanceCharts" styleClass="buttonADD" stylesheets="@css/styling.css" text="Voir les performances" />
 
-</AnchorPane>
+</BorderPane>

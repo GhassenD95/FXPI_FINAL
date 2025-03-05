@@ -24,6 +24,8 @@ public class NavigationController {
     public Button navEquipementButton;
     @FXML
     public Button navInstallationsButton;
+    @FXML
+    public Button navPerformanceButton;
 
     public void initialize() {
         switch (SessionManagement.getInstance().getCurrentUser().getRole()) {
@@ -37,6 +39,7 @@ public class NavigationController {
                 navMatchButton.setVisible(false);
                 navEquipementButton.setVisible(true);
                 navInstallationsButton.setVisible(true);
+                navPerformanceButton.setVisible(false);
                 break;
             }
             case COACH -> {
@@ -46,6 +49,8 @@ public class NavigationController {
                 navMatchButton.setVisible(true);
                 navEquipementButton.setVisible(false);
                 navInstallationsButton.setVisible(false);
+                navPerformanceButton.setVisible(true);
+
                 break;
             }
             case ATHLETE -> {
@@ -55,6 +60,7 @@ public class NavigationController {
                 navMatchButton.setVisible(true);
                 navEquipementButton.setVisible(false);
                 navInstallationsButton.setVisible(false);
+                navPerformanceButton.setVisible(false);
                 break;
             }
         }
@@ -83,7 +89,7 @@ public class NavigationController {
 
     @FXML
     private void navigateToTeams(ActionEvent event) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/User.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/Team.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
     }

@@ -20,4 +20,6 @@
     <Button fx:id="navMatchButton" onAction="#navigateToMatches" prefHeight="41.0" prefWidth="170.0" styleClass="buttonADD" stylesheets="@css/styling.css" text="Matches" textAlignment="CENTER" />
     <Button fx:id="navEquipementButton" onAction="#navigateToEquipement" prefHeight="41.0" prefWidth="170.0" styleClass="buttonADD" stylesheets="@css/styling.css" text="Equipement" textAlignment="CENTER" />
     <Button fx:id="navInstallationsButton" onAction="#navigateToInstallations" prefHeight="41.0" prefWidth="170.0" styleClass="buttonADD" stylesheets="@css/styling.css" text="Installations" textAlignment="CENTER" />
+    <Button fx:id="navPerformanceButton" onAction="#navigateToPerformances" prefHeight="41.0" prefWidth="170.0" styleClass="buttonADD" stylesheets="@css/styling.css" text="Performance equipes" textAlignment="CENTER" />
+
 </VBox>

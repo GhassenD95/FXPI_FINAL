@@ -12,7 +12,9 @@
 <?import javafx.scene.text.Text?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="556.0" prefWidth="945.0" style=";" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PerformanceController">
+
     <children>
+
         <ImageView fitHeight="556.0" fitWidth="945.0" pickOnBounds="true">
             <image>
                 <Image url="@images/crud.jpg" />
