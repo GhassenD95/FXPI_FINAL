@@ -3,18 +3,18 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="controllers.Landing">
+<BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Landing">
+
 
     <left>
-        <VBox fx:id="sidebarContainer"/>
+        <VBox fx:id="sidebarContainer" />
     </left>
 
     <center>
         <StackPane>
-            <ImageView fx:id="backgroundImage" fitWidth="945.0" fitHeight="556.0" preserveRatio="false">
+            <ImageView fx:id="backgroundImage" fitHeight="556.0" fitWidth="945.0" preserveRatio="false">
                 <image>
-                    <Image url="@images/Landingpage.jpg"/>
+                    <Image url="@images/Landingpage.jpg" />
                 </image>
             </ImageView>
         </StackPane>

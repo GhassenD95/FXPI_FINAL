@@ -1,61 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.InstallationSportiveController">
-    <top>
-        <Label text="Gestion des Installations Sportives" style="-fx-font-size: 18px; -fx-font-weight: bold;" BorderPane.alignment="CENTER"/>
-    </top>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="556.0" prefWidth="945.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.InstallationSportiveController">
+    <children>
+        <!-- Background Image -->
+        <ImageView fitHeight="556.0" fitWidth="945.0" pickOnBounds="true">
+            <image>
+                <Image url="@images/crud.jpg" />
+            </image>
+        </ImageView>
 
-    <center>
-        <VBox spacing="10">
-            <padding>
-                <Insets top="10" right="10" bottom="10" left="10"/>
-            </padding>
+        <!-- Title -->
+        <Text fill="#043873" layoutX="72.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gestion des Installations Sportives" wrappingWidth="265.70770263671864">
+            <font>
+                <Font name="Arial Bold" size="17.0" />
+            </font>
+        </Text>
 
-            <GridPane hgap="10" vgap="10">
-                <columnConstraints>
-                    <ColumnConstraints halignment="RIGHT"/>
-                    <ColumnConstraints hgrow="ALWAYS"/>
-                </columnConstraints>
+        <!-- Input Fields for Installation Details -->
+        <TextField fx:id="nomField" layoutX="72.0" layoutY="79.0" prefHeight="25.0" prefWidth="224.0" promptText="Nom" />
+        <ComboBox fx:id="typeComboBox" layoutX="72.0" layoutY="113.0" prefHeight="25.0" prefWidth="224.0" promptText="Type" />
+        <TextField fx:id="adresseField" layoutX="72.0" layoutY="147.0" prefHeight="25.0" prefWidth="224.0" promptText="Adresse" />
+        <TextField fx:id="capaciteField" layoutX="72.0" layoutY="181.0" prefHeight="25.0" prefWidth="224.0" promptText="Capacité" />
+        <CheckBox fx:id="disponibleCheckBox" layoutX="72.0" layoutY="215.0" text="Disponible" />
+        <TextField fx:id="imageField" layoutX="72.0" layoutY="249.0" prefHeight="25.0" prefWidth="224.0" promptText="Image URL" />
 
-                <Label text="Nom:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                <TextField fx:id="nomField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+        <!-- Action Buttons -->
+        <Button fx:id="AddButton" layoutX="72.0" layoutY="290.0" onAction="#handleAdd" styleClass="buttonADD" stylesheets="@css/styling.css" text="Ajouter" />
+        <Button fx:id="EditButton" layoutX="180.0" layoutY="290.0" onAction="#handleEdit" styleClass="buttonEDIT" stylesheets="@css/styling.css" text="Modifier" />
+        <Button fx:id="DeleteButton" layoutX="288.0" layoutY="290.0" onAction="#handleDelete" styleClass="buttonDELETE" stylesheets="@css/styling.css" text="Supprimer" />
 
-                <Label text="Type:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                <ComboBox fx:id="typeComboBox" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-
-                <Label text="Adresse:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                <TextField fx:id="adresseField" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-
-                <Label text="Capacité:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                <TextField fx:id="capaciteField" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
-
-                <Label text="Disponible:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-                <CheckBox fx:id="disponibleCheckBox" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
-
-                <Label text="Image URL:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
-                <TextField fx:id="imageField" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
-            </GridPane>
-
-            <HBox spacing="10" alignment="CENTER">
-                <Button text="Ajouter" onAction="#handleAdd"/>
-                <Button text="Modifier" onAction="#handleEdit"/>
-                <Button text="Supprimer" onAction="#handleDelete"/>
-            </HBox>
-        </VBox>
-    </center>
-
-    <bottom>
-        <TableView fx:id="installationTable">
+        <!-- Installation Table -->
+        <TableView fx:id="installationTable" layoutX="72.0" layoutY="335.0" prefHeight="150.0" prefWidth="750.0">
             <columns>
-                <TableColumn text="Nom" fx:id="nomColumn"/>
-                <TableColumn text="Type" fx:id="typeColumn"/>
-                <TableColumn text="Adresse" fx:id="adresseColumn"/>
-                <TableColumn text="Capacité" fx:id="capaciteColumn"/>
-                <TableColumn text="Disponible" fx:id="disponibleColumn"/>
+                <TableColumn fx:id="nomColumn" prefWidth="150.0" text="Nom" />
+                <TableColumn fx:id="typeColumn" prefWidth="150.0" text="Type" />
+                <TableColumn fx:id="adresseColumn" prefWidth="150.0" text="Adresse" />
+                <TableColumn fx:id="capaciteColumn" prefWidth="150.0" text="Capacité" />
+                <TableColumn fx:id="disponibleColumn" prefWidth="150.0" text="Disponible" />
             </columns>
         </TableView>
-    </bottom>
-</BorderPane>
+
+        <!-- Include Home Button -->
+        <fx:include source="HomeButton.fxml" />
+    </children>
+</Pane>

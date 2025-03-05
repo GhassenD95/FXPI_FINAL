@@ -7,17 +7,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import models.module4.PerformanceEquipe;
@@ -34,10 +31,11 @@ public class Performance1Controller {
     @FXML
     public Button navigateButton;
     @FXML
+    public VBox sidebarContainer;
+    @FXML
     private ListView<PerformanceEquipe> listView;
     @FXML
     private TextField searchField;
-
     @FXML
     private Button searchButton;
 
@@ -46,68 +44,7 @@ public class Performance1Controller {
     @FXML
     public void initialize() {
         loadPerformanceData();
-
-        listView.setCellFactory(param -> new ListCell<>() {
-            @Override
-            protected void updateItem(PerformanceEquipe item, boolean empty) {
-                super.updateItem(item, empty);
-
-                if (empty || item == null) {
-                    setText(null);
-                    setGraphic(null);
-                } else {
-                    // Create a container for the row with a VBox for the text and a HBox for buttons
-                    VBox infoBox = new VBox(5);
-                    infoBox.setStyle("-fx-padding: 10px;");
-
-                    // Name and team info
-                    String displayText = String.format("%-20s  %-20s  Buts: %-3d  Fautes: %-3d   Rang: %-3d",
-                            item.getEquipe().getNom(),
-                            item.getTournois().getNom(),
-                            item.getVictoires(),
-                            item.getPertes(),
-                            item.getRang());
-
-                    // Create label and set styles for the text
-                    javafx.scene.control.Label label = new javafx.scene.control.Label(displayText);
-                    label.setFont(Font.font("Arial", 14));
-                    label.setTextFill(Color.web("#043873"));
-                    infoBox.getChildren().add(label);
-
-                    // Modify button
-                    Button modifyButton = new Button();
-                    ImageView modifyImageView = new ImageView(new Image(getClass().getResourceAsStream("/images/vector.png")));
-                    modifyImageView.setFitHeight(15);
-                    modifyImageView.setFitWidth(15);
-                    modifyButton.setGraphic(modifyImageView);
-                    modifyButton.getStyleClass().add("icon-button");
-
-                    // Delete button
-                    Button deleteButton = new Button();
-                    ImageView deleteImageView = new ImageView(new Image(getClass().getResourceAsStream("/images/trash.png")));
-                    deleteImageView.setFitHeight(15);
-                    deleteImageView.setFitWidth(15);
-                    deleteButton.setGraphic(deleteImageView);
-                    deleteButton.getStyleClass().add("icon-button");
-
-                    // Buttons box
-                    HBox buttonsBox = new HBox(10, modifyButton, deleteButton);
-                    buttonsBox.setStyle("-fx-padding: 10px;");
-                    infoBox.getChildren().add(buttonsBox);
-
-                    // Set the background style for each row to make it more distinct
-                    infoBox.setStyle("-fx-background-color: #f8f9fa; -fx-border-radius: 5px; -fx-border-color: #ddd;");
-
-                    // Add the content to the cell
-                    setGraphic(infoBox);
-
-                    // Event actions for buttons
-                    modifyButton.setOnAction(event -> openUpdateDialog(item));
-                    deleteButton.setOnAction(event -> deletePerformance(item));
-                }
-            }
-
-    });
+        listView.setCellFactory(param -> new PerformanceListCell());
     }
 
     private void loadPerformanceData() {
@@ -121,14 +58,93 @@ public class Performance1Controller {
         }
     }
 
-    private void deletePerformance(PerformanceEquipe performance) {
+    @FXML
+    private void handleSearch(ActionEvent event) {
+        String searchText = searchField.getText();
         ServicePerformanceEquipe servicePerformanceEquipe = new ServicePerformanceEquipe();
         try {
-            servicePerformanceEquipe.delete(performance);
-            performanceList.remove(performance);
+            List<PerformanceEquipe> filteredPerformances = servicePerformanceEquipe.rechercheDynamique(searchText);
+            performanceList.setAll(filteredPerformances);
+            listView.setItems(performanceList);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    private class PerformanceListCell extends ListCell<PerformanceEquipe> {
+        private final HBox content;
+        private final VBox infoBox;
+        private final Text nameText;
+        private final Text tournamentText;
+        private final Text statsText;
+        private final Button modifyButton;
+        private final Button deleteButton;
+
+        public PerformanceListCell() {
+            nameText = new Text();
+            nameText.setFont(Font.font("Arial", 14));
+            nameText.setFill(Color.web("#043873"));
+
+            tournamentText = new Text();
+            tournamentText.setFont(Font.font("Arial", 14));
+            tournamentText.setFill(Color.web("#555"));
+
+            statsText = new Text();
+            statsText.setFont(Font.font("Arial", 14));
+            statsText.setFill(Color.web("#28a745"));
+
+            infoBox = new VBox(5, nameText, tournamentText, statsText);
+            infoBox.setStyle("-fx-padding: 10px;");
+
+            modifyButton = new Button();
+            ImageView modifyImageView = new ImageView(new Image(getClass().getResourceAsStream("/images/vector.png")));
+            modifyImageView.setFitHeight(15);
+            modifyImageView.setFitWidth(15);
+            modifyButton.setGraphic(modifyImageView);
+            modifyButton.getStyleClass().add("icon-button");
+
+            deleteButton = new Button();
+            ImageView deleteImageView = new ImageView(new Image(getClass().getResourceAsStream("/images/trash.png")));
+            deleteImageView.setFitHeight(15);
+            deleteImageView.setFitWidth(15);
+            deleteButton.setGraphic(deleteImageView);
+            deleteButton.getStyleClass().add("icon-button");
+
+            HBox buttonsBox = new HBox(10, modifyButton, deleteButton);
+            buttonsBox.setStyle("-fx-padding: 10px;");
+
+            content = new HBox(20, infoBox, buttonsBox);
+            content.setSpacing(15);
+            content.setStyle("-fx-padding: 10px; -fx-border-color: #ddd; -fx-background-color: #f8f9fa;");
+
+            modifyButton.setOnAction(event -> openUpdateDialog(getItem()));
+            deleteButton.setOnAction(event -> {
+                try {
+                    deletePerformance(getItem());
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        }
+
+        @Override
+        protected void updateItem(PerformanceEquipe performance, boolean empty) {
+            super.updateItem(performance, empty);
+            if (empty || performance == null) {
+                setGraphic(null);
+            } else {
+                nameText.setText("Equipe: " + performance.getEquipe().getNom());
+                tournamentText.setText("Tournoi: " + performance.getTournois().getNom());
+                statsText.setText("Buts: " + performance.getVictoires() + "  Fautes: " + performance.getPertes() + "  Rang: " + performance.getRang());
+                setGraphic(content);
+            }
+        }
+    }
+
+    private void deletePerformance(PerformanceEquipe performance) throws SQLException {
+        ServicePerformanceEquipe servicePerformanceEquipe = new ServicePerformanceEquipe();
+        servicePerformanceEquipe.delete(performance);
+        performanceList.remove(performance);
     }
 
     private void openUpdateDialog(PerformanceEquipe performance) {
@@ -149,6 +165,7 @@ public class Performance1Controller {
             e.printStackTrace();
         }
     }
+
     @FXML
     private void navigateToPerformance() {
         try {
@@ -157,45 +174,29 @@ public class Performance1Controller {
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
-            stage.setOnHidden(event -> loadPerformanceData());
-            stage.show();
 
+            stage.setOnHidden(event -> loadPerformanceData());
+
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
     @FXML
     private void navigateToPerformanceCharts() {
         try {
-            // Load the new FXML file for the performance charts
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/PerformanceCharts.fxml"));
-            AnchorPane root = loader.load();
+            Parent root = loader.load();
 
-            // Create a new stage (window)
             Stage chartStage = new Stage();
             chartStage.setTitle("Performance Charts");
             chartStage.setScene(new Scene(root));
 
-            // Show the new window
             chartStage.show();
-
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    @FXML
-    private void handleSearch(ActionEvent event) {
-        String searchText = searchField.getText();
-        ServicePerformanceEquipe servicePerformanceEquipe = new ServicePerformanceEquipe();
-        try {
-            List<PerformanceEquipe> filteredPerformances = servicePerformanceEquipe.rechercheDynamique(searchText);
-            performanceList.setAll(filteredPerformances);
-            listView.setItems(performanceList);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-
 
 }

@@ -14,6 +14,20 @@
     -fx-text-fill: white; /* Text color */
     -fx-font-weight: bold; /* Bold text */
 }
+.buttonEDIT {
+    -fx-background-color: #6854e3; /* Light blue background */
+    -fx-background-radius: 8px; /* Rounded corners */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 4, 0, 2, 2); /* Shadow */
+    -fx-text-fill: white; /* Text color */
+    -fx-font-weight: bold; /* Bold text */
+}
+.buttonDELETE {
+    -fx-background-color: #e30606; /* Light blue background */
+    -fx-background-radius: 8px; /* Rounded corners */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 4, 0, 2, 2); /* Shadow */
+    -fx-text-fill: white; /* Text color */
+    -fx-font-weight: bold; /* Bold text */
+}
 
 .buttonWithImage:hover {
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 6, 0, 3, 3); /* Shadow on hover */

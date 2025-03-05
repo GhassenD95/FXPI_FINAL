@@ -14,7 +14,6 @@ module mains.fxpi_final {
     requires org.json;
     requires jdk.jsobject;
     requires com.google.gson;
-    requires java.sql;
     requires com.google.api.client.auth;
     requires google.api.client;
     requires com.google.api.client;
@@ -24,6 +23,11 @@ module mains.fxpi_final {
     requires org.apache.httpcomponents.client5.httpclient5;
     requires org.apache.httpcomponents.core5.httpcore5;
     requires jbcrypt;
+    requires com.fasterxml.jackson.databind;
+    requires org.apache.httpcomponents.httpcore;
+    requires org.apache.httpcomponents.httpclient;
+    requires java.sql;
+    requires java.desktop;
 
     opens mains.fxpi_final to javafx.fxml;
     opens models.module4 to javafx.base;

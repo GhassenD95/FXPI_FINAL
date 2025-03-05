@@ -99,4 +99,6 @@
             </children>
         </Pane>
     </center>
+    <fx:include source="HomeButton.fxml" />
+
 </BorderPane>

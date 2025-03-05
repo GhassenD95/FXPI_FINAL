@@ -127,11 +127,22 @@ public class UserController {
     @FXML
     private void saveUser(ActionEvent actionEvent) {
         if (validateFields()) {
-            String hashedPassword;
-            if (selectedUser == null || !passwordField.getText().isEmpty()) {
-                hashedPassword = hashPassword(passwordField.getText());
+            String rawPassword = "";
+            String passwordToStore = "";
+            if (selectedUser == null) {
+                // For a new user, use the raw password (and let the service hash it)
+                rawPassword = passwordField.getText();
+                // Set an empty string or placeholder for the mdpHash field; it will be overwritten by addUser()
+                passwordToStore = "";
             } else {
-                hashedPassword = selectedUser.getMdpHash(); // Garde le mot de passe existant
+                // For updating, if the password field is not empty, update the password
+                if (!passwordField.getText().isEmpty()) {
+                    rawPassword = passwordField.getText();
+                    passwordToStore = "";
+                } else {
+                    // Otherwise, keep the existing hash
+                    passwordToStore = selectedUser.getMdpHash();
+                }
             }
 
             User newUser = new User(
@@ -143,8 +154,10 @@ public class UserController {
                     adresseField.getText(),
                     "adherent",
                     emailField.getText(),
-                    hashedPassword
+                    passwordToStore  // Pass the hash if updating without a new password
             );
+            newUser.setRawPassword(rawPassword);
+
 
             try {
                 if (selectedUser == null) {
@@ -173,8 +186,8 @@ public class UserController {
             private final HBox container = new HBox(10, editButton, deleteButton);
 
             {
-                editButton.setStyle("-fx-background-color: #ffc107; -fx-text-fill: white;");
-                deleteButton.setStyle("-fx-background-color: #dc3545; -fx-text-fill: white;");
+                editButton.setStyle("-fx-background-color: #ac07ff; -fx-text-fill: white;");
+                deleteButton.setStyle("-fx-background-color: #ff0019; -fx-text-fill: white;");
 
                 editButton.setOnAction(event -> {
                     User user = getTableView().getItems().get(getIndex());

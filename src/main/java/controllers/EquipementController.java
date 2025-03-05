@@ -14,6 +14,12 @@ import java.sql.SQLException;
 public class EquipementController {
 
     @FXML
+    public Button AddButton;
+    @FXML
+    public Button EditButton;
+    @FXML
+    public Button DeleteButton;
+    @FXML
     private TextField nomField, descriptionField, imageField, quantiteField;
     @FXML
     private ComboBox<EtatEquipement> etatComboBox;

@@ -1,75 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.*?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SignUpController"
-            style="-fx-background-color: #f0f0f0;">
+<AnchorPane prefHeight="407.0" prefWidth="770.0" style="-fx-background-color: linear-gradient(to bottom right, #ffffff, #e1e1e1);" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SignUpController">
     <children>
-        <VBox alignment="CENTER" spacing="20" style="-fx-padding: 30;">
+        <!-- Background Image -->
+        <ImageView fitHeight="710.0" fitWidth="965.0" pickOnBounds="true">
+            <image>
+                <Image url="@images/crud.jpg" />
+            </image>
+        </ImageView>
 
-            <Label text="Création de Compte" style="-fx-font-size: 24; -fx-font-weight: bold;"/>
+        <!-- Main Card Image -->
+        <ImageView fitHeight="647.0" fitWidth="596.0" layoutX="166.0" layoutY="53.0" pickOnBounds="true">
+            <image>
+                <Image url="@images/Card.png" />
+            </image>
+        </ImageView>
 
-            <!-- Formulaire principal -->
-            <GridPane hgap="15" vgap="10" style="-fx-background-color: #fff; -fx-padding: 20; -fx-border-color: #ccc;">
+        <!-- Main VBox for Content -->
+        <VBox alignment="CENTER" layoutX="179.0" layoutY="47.0" prefHeight="606.0" prefWidth="550.0" spacing="20" style="-fx-padding: 40;">
+            <!-- Title Area -->
+            <Label style="-fx-font-size: 28; -fx-font-weight: bold; -fx-text-fill: #333;" text="Création de Compte" textFill="#09235b" />
 
-                <!-- Row 0 : Prenom / Nom -->
-                <Label text="Prénom:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                <TextField fx:id="prenomField" promptText="Votre prénom"
-                           GridPane.rowIndex="0" GridPane.columnIndex="1" prefWidth="150"/>
+            <!-- Sign Up Form -->
+            <VBox alignment="CENTER" prefHeight="380.0" prefWidth="614.0" spacing="15" style="-fx-background-color: #fff; -fx-padding: 20; -fx-border-color: #ddd; -fx-border-radius: 5; -fx-background-radius: 5;">
 
-                <Label text="Nom:" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
-                <TextField fx:id="nomField" promptText="Votre nom"
-                           GridPane.rowIndex="0" GridPane.columnIndex="3" prefWidth="150"/>
+                <!-- Form Grid for input fields -->
+                <GridPane hgap="15" style="-fx-background-color: #fff; -fx-padding: 20; -fx-border-color: #ccc;" vgap="10">
+                    <!-- First Row: Prenom and Nom -->
+                    <Label text="Prénom:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                    <TextField fx:id="prenomField" prefWidth="150" promptText="Votre prénom" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
-                <!-- Row 1 : Date de naissance / Téléphone -->
-                <Label text="Date de Naissance:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                <DatePicker fx:id="birthdayPicker" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                    <Label text="Nom:" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                    <TextField fx:id="nomField" prefWidth="150" promptText="Votre nom" GridPane.columnIndex="3" GridPane.rowIndex="0" />
 
-                <Label text="Téléphone:" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
-                <TextField fx:id="telField" promptText="Ex: 12345678"
-                           GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+                    <!-- Second Row: Date de Naissance and Téléphone -->
+                    <Label text="Date de Naissance:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                    <DatePicker fx:id="birthdayPicker" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-                <!-- Row 2 : Adresse / Email -->
-                <Label text="Adresse:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                <TextField fx:id="adresseField" promptText="Votre adresse"
-                           GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                    <Label text="Téléphone:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                    <TextField fx:id="telField" promptText="Ex: 12345678" GridPane.columnIndex="3" GridPane.rowIndex="1" />
 
-                <Label text="Email:" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
-                <TextField fx:id="emailField" promptText="exemple@domaine.com"
-                           GridPane.rowIndex="2" GridPane.columnIndex="3"/>
+                    <!-- Third Row: Adresse and Email -->
+                    <Label text="Adresse:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                    <TextField fx:id="adresseField" promptText="Votre adresse" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
-                <!-- Row 3 : Mot de passe / Confirmation -->
-                <Label text="Mot de passe:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                <PasswordField fx:id="passwordField" promptText="Votre mot de passe"
-                               GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                    <Label text="Email:" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                    <TextField fx:id="emailField" promptText="exemple@domaine.com" GridPane.columnIndex="3" GridPane.rowIndex="2" />
 
-                <Label text="Confirmer:" GridPane.rowIndex="3" GridPane.columnIndex="2"/>
-                <PasswordField fx:id="repasswordField" promptText="Confirmer mot de passe"
-                               GridPane.rowIndex="3" GridPane.columnIndex="3"/>
-            </GridPane>
+                    <!-- Fourth Row: Mot de passe and Confirmation -->
+                    <Label text="Mot de passe:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                    <PasswordField fx:id="passwordField" promptText="Votre mot de passe" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
-            <!-- Section pour l'image -->
-            <HBox spacing="15" alignment="CENTER">
-                <VBox alignment="CENTER" spacing="5">
-                    <ImageView fx:id="imageView" fitWidth="120" fitHeight="120" preserveRatio="true"
-                               style="-fx-border-color: #ccc; -fx-border-width: 1px;"/>
-                    <Button text="Choisir Image" onAction="#chooseImage"
-                            style="-fx-background-color: #007bff; -fx-text-fill: white;"/>
-                    <Label fx:id="imagePathLabel" text="Aucune image" style="-fx-font-size: 12px;"/>
-                </VBox>
-            </HBox>
+                    <Label text="Confirmer:" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                    <PasswordField fx:id="repasswordField" promptText="Confirmer mot de passe" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+               <columnConstraints>
+                  <ColumnConstraints />
+                  <ColumnConstraints />
+                  <ColumnConstraints />
+                  <ColumnConstraints />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+               </rowConstraints>
+                </GridPane>
 
-            <!-- Bouton Sign Up -->
-            <Button text="Créer le Compte" onAction="#handleSignUp"
-                    style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-font-size: 14px;"/>
+                <!-- Image Upload Section -->
+                <HBox alignment="CENTER" prefHeight="118.0" prefWidth="429.0" spacing="15">
+                    <VBox alignment="CENTER" prefHeight="50.0" prefWidth="120.0" spacing="5">
+                        <ImageView fx:id="imageView" fitHeight="120" fitWidth="120" preserveRatio="true" style="-fx-border-color: #ccc; -fx-border-width: 1px;" />
+                        <Button onAction="#chooseImage" style="-fx-background-color: #007bff; -fx-text-fill: white;" text="Choisir Image" />
+                        <Label fx:id="imagePathLabel" style="-fx-font-size: 12px;" text="Aucune image" />
+                    </VBox>
+                </HBox>
 
-            <!-- Label d'erreur/succès -->
-            <Label fx:id="errorLabel" textFill="red" style="-fx-font-size: 12px;" />
+                <!-- Sign Up Button -->
+                <Button onAction="#handleSignUp" style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-font-size: 14px;" text="Créer le Compte" />
 
-            <!-- Lien pour retourner Sign In -->
-            <Hyperlink text="Retour à la connexion" onAction="#handleBackToSignIn" style="-fx-font-size: 12px;"/>
+                <!-- Error/Success Label -->
+                <Label fx:id="errorLabel" style="-fx-font-size: 12px;" textFill="red" />
+
+                <!-- Link to Return to Sign In -->
+                <Hyperlink onAction="#handleBackToSignIn" style="-fx-font-size: 12px;" text="Retour à la connexion" />
+            </VBox>
         </VBox>
     </children>
 </AnchorPane>

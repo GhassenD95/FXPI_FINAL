@@ -16,15 +16,20 @@ public class ServiceEquipement {
         conn = DbConnection.getInstance().getConn();
     }
     public void ajouterEquipement(Equipement equipement) throws SQLException {
-        String query = "INSERT INTO equipement (nom, description, etat, typeEquipement, image_url, quantite) VALUES (?, ?, ?, ?, ?, ?)";
-        PreparedStatement pst = conn.prepareStatement(query);
-        pst.setString(1, equipement.getNom());
-        pst.setString(2, equipement.getDescription());
-        pst.setString(3, equipement.getEtat().name());
-        pst.setString(4, equipement.getTypeEquipement().name());
-        pst.setString(5, equipement.getImage_url());
-        pst.setInt(6, equipement.getQuantite());
-        pst.executeUpdate();
+        String query = "INSERT INTO equipement (nom, description, etat, typeEquipement, imageUrl, quantite) VALUES (?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement pst = conn.prepareStatement(query)) {
+            pst.setString(1, equipement.getNom());
+            pst.setString(2, equipement.getDescription());
+            pst.setString(3, equipement.getEtat().name());
+            pst.setString(4, equipement.getTypeEquipement().name());
+            pst.setString(5, equipement.getImageUrl()); // Use getImageUrl() method
+            pst.setInt(6, equipement.getQuantite());
+            pst.executeUpdate();
+            System.out.println("Equipement ajouté avec succès.");
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de l'ajout de l'équipement : " + e.getMessage());
+            throw e;
+        }
     }
 
     public void updateEquipement(Equipement equipement) throws SQLException {

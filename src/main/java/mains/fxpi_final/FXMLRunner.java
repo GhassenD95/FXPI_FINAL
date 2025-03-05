@@ -11,7 +11,7 @@ public class FXMLRunner extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         // Load the FXML file
-        Parent root = FXMLLoader.load(getClass().getResource("/Landing.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/Performancelist.fxml"));
 
         // Set the scene
         primaryStage.setScene(new Scene(root));

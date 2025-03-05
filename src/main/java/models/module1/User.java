@@ -13,6 +13,7 @@ public class User {
     private String imageUrl;
     private String email;
     private String mdpHash;
+    private String rawPassword;
 
     public User(int id, String prenom, String nom, Role role, String birthday, String tel, String adresse, String status, String imageUrl, String email, String mdpHash) {
         this.id = id;
@@ -33,6 +34,14 @@ public class User {
 
     public static Role valueOf(String role) {
         return Role.valueOf(role);
+    }
+    public String getRawPassword() {
+        return rawPassword;
+    }
+
+    // Add the setRawPassword method
+    public void setRawPassword(String rawPassword) {
+        this.rawPassword = rawPassword;
     }
 
     public int getId() { return id; }
@@ -67,4 +76,5 @@ public class User {
 
     public String getMdpHash() { return mdpHash; }
     public void setMdpHash(String mdpHash) { this.mdpHash = mdpHash; }
+
 }

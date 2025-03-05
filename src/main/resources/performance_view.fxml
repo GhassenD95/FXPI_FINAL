@@ -3,13 +3,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
-
 <?import javafx.geometry.Insets?>
 <BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="controllers.PerformanceAthleteController">
 
     <center>
         <VBox spacing="10" style="-fx-padding: 10;">
+            <!-- Grid for Input Fields -->
             <GridPane hgap="10" vgap="10">
                 <padding>
                     <Insets top="10" right="10" bottom="10" left="10"/>
@@ -42,17 +42,18 @@
                 <TextField fx:id="rebondsField" GridPane.rowIndex="10" GridPane.columnIndex="1"/>
             </GridPane>
 
+            <!-- Error Label -->
             <Label fx:id="errorLabel" style="-fx-text-fill: red;"/>
 
             <!-- Buttons -->
             <HBox spacing="10">
-                <Button text="Ajouter" onAction="#ajouterPerformance"/>
-                <Button text="Modifier" onAction="#modifierPerformance"/>
-                <Button text="Supprimer" onAction="#supprimerPerformance"/>
+                <Button text="Ajouter" onAction="#ajouterPerformance" styleClass="buttonADD" stylesheets="@css/styling.css"/>
+                <Button text="Modifier" onAction="#modifierPerformance" styleClass="buttonEDIT" stylesheets="@css/styling.css"/>
+                <Button text="Supprimer" onAction="#supprimerPerformance" styleClass="buttonDELETE" stylesheets="@css/styling.css"/>
             </HBox>
 
             <!-- TableView -->
-            <TableView fx:id="performanceTable">
+            <TableView fx:id="performanceTable" prefWidth="750.0">
                 <columns>
                     <TableColumn text="ID" fx:id="idColumn" />
                     <TableColumn text="Athlete ID" fx:id="athleteColumn"/>
@@ -70,4 +71,7 @@
             </TableView>
         </VBox>
     </center>
+
+    <!-- Home Button -->
+    <fx:include source="HomeButton.fxml" />
 </BorderPane>

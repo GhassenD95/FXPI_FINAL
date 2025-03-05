@@ -28,15 +28,13 @@ public class AddUserController {
     private final Connection conn = DbConnection.getInstance().getConn();
     private final UserService userService = new UserService(conn);
     private User selectedUser = null;
-    @FXML
-    private VBox sidebarContainer;
+
 
     @FXML
     public void initialize() throws IOException {
         ObservableList<Role> roles = FXCollections.observableArrayList(Role.values());
         roleComboBox.setItems(roles);
-        VBox sidebar = FXMLLoader.load(getClass().getResource("/navigation.fxml"));
-        sidebarContainer.getChildren().setAll(sidebar);
+
     }
 
     public void setUserData(User user) {
@@ -56,17 +54,35 @@ public class AddUserController {
     private void saveUser(ActionEvent actionEvent) {
         if (!validateFields()) return;
 
-        String hashedPassword = selectedUser == null ? hashPassword(passwordField.getText()) : selectedUser.getMdpHash();
-        String status = "active"; // Ensure this value is within the allowed size
+        // For new users, use the raw password from the PasswordField.
+        String rawPassword = "";
+        String passwordToStore = "";
+        if (selectedUser == null) {
+            rawPassword = passwordField.getText(); // Get raw password from the UI
+            // Leave passwordToStore empty; it will be overwritten by userService.addUser()
+        } else {
+            if (!passwordField.getText().isEmpty()) {
+                rawPassword = passwordField.getText();
+                // If a new password is provided during update, we update it.
+            } else {
+                // Otherwise, keep the existing hash.
+                passwordToStore = selectedUser.getMdpHash();
+            }
+        }
 
-
+        // Construct the new User. Note: we're passing the passwordToStore (empty if new),
+        // and then setting the raw password separately.
         User newUser = selectedUser == null ?
                 new User(0, prenomField.getText(), nomField.getText(), roleComboBox.getValue(),
                         birthdayPicker.getValue().toString(), telField.getText(), adresseField.getText(),
-                        "status", "imageUrl", emailField.getText(), hashedPassword) :
+                        "status", "imageUrl", emailField.getText(), passwordToStore) :
                 new User(selectedUser.getId(), prenomField.getText(), nomField.getText(), roleComboBox.getValue(),
                         birthdayPicker.getValue().toString(), telField.getText(), adresseField.getText(),
-                        "status", "imageUrl", emailField.getText(), hashedPassword);
+                        "status", "imageUrl", emailField.getText(), passwordToStore);
+
+        // Set the raw password so that UserService can perform BCrypt hashing
+        newUser.setRawPassword(rawPassword);
+
         try {
             if (selectedUser == null) {
                 userService.addUser(newUser);
@@ -79,6 +95,7 @@ public class AddUserController {
             showError("Erreur lors de l'ajout de l'utilisateur.");
         }
     }
+
 
     private boolean validateFields() {
         String prenom = prenomField.getText();

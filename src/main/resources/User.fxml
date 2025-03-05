@@ -1,32 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.*?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UserController">
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.12" fx:controller="controllers.UserController">
 
     <center>
-        <VBox spacing="10" alignment="CENTER" style="-fx-padding: 20;">
+        <VBox spacing="10" style="-fx-padding: 20;">
 
             <!-- Titre -->
-            <Label text="Gestion des Utilisateurs" style="-fx-font-size: 22px; -fx-font-weight: bold;"/>
+            <Label style="-fx-font-size: 22px; -fx-font-weight: bold;" text="Gestion des Utilisateurs" />
 
             <!-- Tableau des utilisateurs -->
-            <TableView fx:id="userTable" style="-fx-background-color: white; -fx-border-color: #ccc; -fx-border-width: 1px;">
+            <TableView fx:id="userTable" styleClass="responsive-table" stylesheets="@css/styling.css">
                 <columns>
-                    <TableColumn fx:id="colId" text="ID" minWidth="50"/>
-                    <TableColumn fx:id="colPrenom" text="Prénom" minWidth="100"/>
-                    <TableColumn fx:id="colNom" text="Nom" minWidth="100"/>
-                    <TableColumn fx:id="colEmail" text="Email" minWidth="150"/>
-                    <TableColumn fx:id="colTel" text="Téléphone" minWidth="120"/>
-                    <TableColumn fx:id="colAdresse" text="Adresse" minWidth="150"/>
+                    <TableColumn fx:id="colId" minWidth="50" text="ID" />
+                    <TableColumn fx:id="colPrenom" minWidth="100" text="Prénom" />
+                    <TableColumn fx:id="colNom" minWidth="100" text="Nom" />
+                    <TableColumn fx:id="colEmail" minWidth="150" text="Email" />
+                    <TableColumn fx:id="colTel" minWidth="120" text="Téléphone" />
+                    <TableColumn fx:id="colAdresse" minWidth="150" text="Adresse" />
                 </columns>
             </TableView>
 
             <!-- Bouton Ajouter -->
-            <Button text="Ajouter un utilisateur" onAction="#addUser"
-                    style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-font-size: 14px;"/>
+            <Button onAction="#addUser" styleClass="buttonADD" stylesheets="@css/styling.css" text="Ajouter un utilisateur" />
 
         </VBox>
     </center>
+    <fx:include source="HomeButton.fxml" />
+
 </BorderPane>

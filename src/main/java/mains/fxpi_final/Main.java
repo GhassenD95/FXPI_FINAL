@@ -48,6 +48,7 @@ public class Main extends javafx.application.Application {
             Parent root = loader.load();
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
+            primaryStage.setUserData(this); // Set Main instance as user data
             primaryStage.show();
         } catch (Exception e) {
             e.printStackTrace();
