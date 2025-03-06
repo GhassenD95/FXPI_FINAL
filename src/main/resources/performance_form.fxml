@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.PerformanceFormController">
+    
+    <center>
+        <VBox spacing="10" style="-fx-padding: 10;">
+            <Label fx:id="titleLabel" text="Ajouter une Performance" style="-fx-font-size: 20px;"/>
+            
+            <GridPane hgap="10" vgap="10">
+                <padding>
+                    <Insets top="10" right="10" bottom="10" left="10"/>
+                </padding>
+
+                <!-- ID Athlète -->
+                <Label text="Athlète:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <ComboBox fx:id="athleteComboBox" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                <!-- Match -->
+                <Label text="Match:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <ComboBox fx:id="matchComboBox" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                <!-- Minutes Jouées -->
+                <Label text="Minutes Jouées:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <TextField fx:id="minutesJoueesField" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                <!-- Buts -->
+                <Label text="Buts:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                <TextField fx:id="butsField" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                <!-- Passes Décisives -->
+                <Label text="Passes Décisives:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                <TextField fx:id="passesDecisivesField" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+                <!-- Tirs -->
+                <Label text="Tirs:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                <TextField fx:id="tirsField" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+                <!-- Interceptions -->
+                <Label text="Interceptions:" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+                <TextField fx:id="interceptionsField" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+
+                <!-- Fautes -->
+                <Label text="Fautes:" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
+                <TextField fx:id="fautesField" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+
+                <!-- Cartons Jaunes -->
+                <Label text="Cartons Jaunes:" GridPane.rowIndex="8" GridPane.columnIndex="0"/>
+                <TextField fx:id="cartonsJaunesField" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
+
+                <!-- Cartons Rouges -->
+                <Label text="Cartons Rouges:" GridPane.rowIndex="9" GridPane.columnIndex="0"/>
+                <TextField fx:id="cartonsRougesField" GridPane.rowIndex="9" GridPane.columnIndex="1"/>
+
+                <!-- Rebonds -->
+                <Label text="Rebonds:" GridPane.rowIndex="10" GridPane.columnIndex="0"/>
+                <TextField fx:id="rebondsField" GridPane.rowIndex="10" GridPane.columnIndex="1"/>
+            </GridPane>
+
+            <Label fx:id="errorLabel" style="-fx-text-fill: red;"/>
+
+            <!-- Boutons -->
+            <HBox spacing="10">
+                <Button text="Enregistrer" onAction="#enregistrerPerformance"/>
+                <Button text="Annuler" onAction="#annuler"/>
+            </HBox>
+        </VBox>
+    </center>
+</BorderPane> 

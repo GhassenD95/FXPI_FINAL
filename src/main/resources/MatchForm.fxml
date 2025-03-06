@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox alignment="CENTER" spacing="10" xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.MatchFormController">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <Label fx:id="titleLabel" text="Ajouter un Match" style="-fx-font-size: 20px;"/>
+
+    <GridPane vgap="10" hgap="10">
+        <Label text="Tournoi:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <ComboBox fx:id="tournoisComboBox" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+        <Label text="Équipe 1:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <ComboBox fx:id="equipe1ComboBox" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+        <Label text="Équipe 2:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <ComboBox fx:id="equipe2ComboBox" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+        <Label text="Date:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+        <DatePicker fx:id="dateField" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+        <Label text="Heure:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+        <HBox spacing="5" GridPane.rowIndex="4" GridPane.columnIndex="1">
+            <TextField fx:id="heureField" promptText="HH" maxWidth="50"/>
+            <Label text=":"/>
+            <TextField fx:id="minuteField" promptText="MM" maxWidth="50"/>
+        </HBox>
+
+        <Label text="Lieu:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+        <TextField fx:id="lieuField" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+    </GridPane>
+
+    <Label fx:id="errorLabel" textFill="RED"/>
+
+    <HBox spacing="10" alignment="CENTER">
+        <Button text="Enregistrer" onAction="#enregistrerMatch"/>
+        <Button text="Annuler" onAction="#annuler"/>
+    </HBox>
+</VBox> 

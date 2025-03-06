@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<VBox spacing="15" alignment="CENTER" style="-fx-padding: 20;" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controllers.MatchSportifController">
+
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Button fx:id="retourButton" 
+                text="Retour à l'accueil"
+                style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
+        <Label text="Gestion des Matchs Sportifs" 
+               style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+    </HBox>
+
+    <HBox spacing="15">
+        <Button text="Ajouter un Match" onAction="#ajouterMatch"/>
+        <Button text="Modifier" onAction="#modifierMatch"/>
+        <Button text="Supprimer" onAction="#supprimerMatch"/>
+        <Button text="Afficher la météo" onAction="#afficherMeteo"/>
+
+    </HBox>
+    
+
+    <Label fx:id="errorLabel" textFill="red"/>
+
+    <TableView fx:id="matchTable" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn text="ID" fx:id="idColumn"/>
+            <TableColumn text="Tournoi" fx:id="tournoiColumn"/>
+            <TableColumn text="Équipe 1" fx:id="equipe1Column"/>
+            <TableColumn text="Équipe 2" fx:id="equipe2Column"/>
+            <TableColumn text="Date" fx:id="dateColumn"/>
+            <TableColumn text="Lieu" fx:id="lieuColumn"/>
+        </columns>
+    </TableView>
+
+</VBox>

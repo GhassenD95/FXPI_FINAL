@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controllers.StatistiquesController"
+      spacing="10">
+    
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+    
+    <style>
+        -fx-background-color: #f5f5f5;
+    </style>
+    
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Button fx:id="retourButton" text="Retour à l'accueil" 
+                style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
+        <Label text="Statistiques" style="-fx-font-weight: bold; -fx-font-size: 24px;"/>
+    </HBox>
+
+    <TabPane VBox.vgrow="ALWAYS">
+        <!-- Onglet Statistiques par Match -->
+        <Tab text="Statistiques par Match" closable="false">
+            <VBox spacing="10">
+                <Label text="Sélectionnez un match pour voir les performances :" style="-fx-font-weight: bold;"/>
+                <ComboBox fx:id="matchComboBox" promptText="Sélectionner un match"/>
+                
+                <TableView fx:id="statsMatchTable" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="athleteMatchColumn" text="Athlète" prefWidth="150"/>
+                        <TableColumn fx:id="minutesMatchColumn" text="Minutes" prefWidth="80"/>
+                        <TableColumn fx:id="butsMatchColumn" text="Buts" prefWidth="80"/>
+                        <TableColumn fx:id="passesMatchColumn" text="Passes" prefWidth="80"/>
+                        <TableColumn fx:id="tirsMatchColumn" text="Tirs" prefWidth="80"/>
+                        <TableColumn fx:id="interceptionsMatchColumn" text="Interceptions" prefWidth="100"/>
+                        <TableColumn fx:id="fautesMatchColumn" text="Fautes" prefWidth="80"/>
+                        <TableColumn fx:id="cartonsJaunesMatchColumn" text="Cartons Jaunes" prefWidth="100"/>
+                        <TableColumn fx:id="cartonsRougesMatchColumn" text="Cartons Rouges" prefWidth="100"/>
+                        <TableColumn fx:id="rebondsMatchColumn" text="Rebonds" prefWidth="80"/>
+                    </columns>
+                </TableView>
+            </VBox>
+        </Tab>
+
+        <!-- Onglet Statistiques des Athlètes -->
+        <Tab text="Statistiques des Athlètes" closable="false">
+            <VBox spacing="10">
+                <HBox spacing="10">
+                    <Button text="Meilleurs Buteurs" onAction="#afficherMeilleursButeurs"/>
+                    <Button text="Meilleurs Passeurs" onAction="#afficherMeilleursPasseurs"/>
+                    <Button text="Statistiques Générales" onAction="#afficherStatistiquesGenerales"/>
+                </HBox>
+
+                <TableView fx:id="statsAthletesTable" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="athleteNomColumn" text="Athlète" prefWidth="150"/>
+                        <TableColumn fx:id="matchsJouesAthleteColumn" text="MJ" prefWidth="50"/>
+                        <TableColumn fx:id="minutesMoyennesColumn" text="Min Moy" prefWidth="70"/>
+                        <TableColumn fx:id="butsColumn" text="Buts" prefWidth="50"/>
+                        <TableColumn fx:id="moyenneButsColumn" text="Moy Buts" prefWidth="70"/>
+                        <TableColumn fx:id="passesColumn" text="Passes" prefWidth="50"/>
+                        <TableColumn fx:id="moyennePassesColumn" text="Moy Passes" prefWidth="70"/>
+                        <TableColumn fx:id="efficaciteColumn" text="Efficacité" prefWidth="70"/>
+                        <TableColumn fx:id="interceptionsColumn" text="Interc" prefWidth="50"/>
+                        <TableColumn fx:id="fautesColumn" text="Fautes" prefWidth="50"/>
+                        <TableColumn fx:id="cartonsJaunesColumn" text="Jaunes" prefWidth="50"/>
+                        <TableColumn fx:id="cartonsRougesColumn" text="Rouges" prefWidth="50"/>
+                        <TableColumn fx:id="rebondsColumn" text="Rebonds" prefWidth="50"/>
+                    </columns>
+                </TableView>
+            </VBox>
+        </Tab>
+    </TabPane>
+</VBox> 

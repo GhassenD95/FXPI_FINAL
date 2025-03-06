@@ -1,0 +1,5 @@
+<HBox spacing="10">
+    <Button text="Gestion des Matchs" onAction="#ouvrirGestionMatchs"/>
+    <Button text="Gestion des Performances" onAction="#ouvrirGestionPerformances"/>
+    <Button text="Statistiques" onAction="#ouvrirStatistiques"/>
+</HBox> 
